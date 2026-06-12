@@ -1422,18 +1422,21 @@
     else document.addEventListener("DOMContentLoaded", fn);
   }
 
-  /* ---- ES / EN toggle (Google Translate) ---- */
-  window.setLang = function (l) {
-    var h = location.hostname;
-    document.cookie = "googtrans=/es/" + l + ";path=/";
-    document.cookie = "googtrans=/es/" + l + ";path=/;domain=" + h;
-    document.cookie = "googtrans=/es/" + l + ";path=/;domain=." + h;
-    location.reload();
-  };
-  window.toggleLang = function () {
-    var en = /googtrans=\/es\/en/.test(document.cookie);
-    window.setLang(en ? "es" : "en");
-  };
+  /* ---- ES / EN toggle (Google Translate, sin recargar) ---- */
+  var __lang = "es";
+  function gtApply(lang, tries) {
+    var c = document.querySelector(".goog-te-combo");
+    if (c) {
+      c.value = lang;
+      c.dispatchEvent(new Event("change"));
+      return;
+    }
+    if ((tries || 0) < 40) {
+      setTimeout(function () { gtApply(lang, (tries || 0) + 1); }, 250);
+    }
+  }
+  window.setLang = function (l) { __lang = l; gtApply(l, 0); };
+  window.toggleLang = function () { window.setLang(__lang === "en" ? "es" : "en"); };
 
   ready(function () {
     if (!document.getElementById("google_translate_element")) {
