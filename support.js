@@ -1507,7 +1507,15 @@
       return;
     }
 
-    /* ESP / ING toggle */
+    /* Selector de idioma por bandera (data-lang="es|en") */
+    var langEl = t.closest("[data-lang]");
+    if (langEl) {
+      e.preventDefault();
+      window.setLang(langEl.getAttribute("data-lang"));
+      return;
+    }
+
+    /* Compatibilidad: enlace de texto "ESP / ING" (alterna) */
     var a = t.closest("a");
     if (a && /ESP\s*\/\s*ING/i.test(a.textContent || "")) {
       e.preventDefault();
