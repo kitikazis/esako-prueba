@@ -1435,7 +1435,15 @@
       setTimeout(function () { gtApply(lang, (tries || 0) + 1); }, 250);
     }
   }
-  window.setLang = function (l) { __lang = l; gtApply(l, 0); };
+  window.setLang = function (l) {
+    __lang = l;
+    try { localStorage.setItem("esako_lang", l); } catch (e) {}
+    var h = location.hostname;
+    document.cookie = "googtrans=/es/" + l + ";path=/";
+    document.cookie = "googtrans=/es/" + l + ";path=/;domain=" + h;
+    document.cookie = "googtrans=/es/" + l + ";path=/;domain=." + h;
+    gtApply(l, 0);
+  };
   window.toggleLang = function () { window.setLang(__lang === "en" ? "es" : "en"); };
 
   ready(function () {
@@ -1465,6 +1473,10 @@
       s.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       document.head.appendChild(s);
     }
+    /* Reaplicar el idioma elegido al cargar / cambiar de página */
+    var saved = null;
+    try { saved = localStorage.getItem("esako_lang"); } catch (e) {}
+    if (saved === "en") { __lang = "en"; gtApply("en", 0); }
   });
 
   /* Click handling: hamburger toggle + ESP/ING language toggle */
