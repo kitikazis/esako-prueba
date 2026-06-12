@@ -1436,15 +1436,28 @@
     }
   }
   window.setLang = function (l) {
-    __lang = l;
-    try { localStorage.setItem("esako_lang", l); } catch (e) {}
     var h = location.hostname;
-    document.cookie = "googtrans=/es/" + l + ";path=/";
-    document.cookie = "googtrans=/es/" + l + ";path=/;domain=" + h;
-    document.cookie = "googtrans=/es/" + l + ";path=/;domain=." + h;
-    gtApply(l, 0);
+    try { localStorage.setItem("esako_lang", l); } catch (e) {}
+    if (l === "en") {
+      __lang = "en";
+      document.cookie = "googtrans=/es/en;path=/";
+      document.cookie = "googtrans=/es/en;path=/;domain=" + h;
+      document.cookie = "googtrans=/es/en;path=/;domain=." + h;
+      gtApply("en", 0);            // traduce al instante (sin recargar)
+    } else {
+      __lang = "es";
+      var del = "googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      document.cookie = del;
+      document.cookie = del + ";domain=" + h;
+      document.cookie = del + ";domain=." + h;
+      location.reload();           // vuelve al español original (nativo)
+    }
   };
-  window.toggleLang = function () { window.setLang(__lang === "en" ? "es" : "en"); };
+  window.toggleLang = function () {
+    var cur = "es";
+    try { cur = localStorage.getItem("esako_lang") || "es"; } catch (e) {}
+    window.setLang(cur === "en" ? "es" : "en");
+  };
 
   ready(function () {
     if (!document.getElementById("google_translate_element")) {
