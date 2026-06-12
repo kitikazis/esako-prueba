@@ -1,6 +1,7 @@
-# Artefactos de build / temporales
+# Artefactos / temporales
 esako-web.zip
 uploads/
+legacy/
 *.log
 Thumbs.db
 .DS_Store
