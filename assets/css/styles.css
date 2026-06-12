@@ -93,6 +93,26 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .panel-title{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:700;color:#fff;text-transform:uppercase;
   line-height:1.2;letter-spacing:1.5px;text-align:center;text-shadow:0 2px 14px rgba(0,0,0,.78);padding:0 26px;animation:revealUp .8s ease}
 @keyframes revealUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.panels--hero{height:64vh;min-height:420px}
+
+/* ===================== SECCIÓN DE SERVICIOS ===================== */
+.srv{max-width:1240px;margin:0 auto;padding:56px 28px 70px}
+.srv-head{text-align:center;margin-bottom:40px}
+.srv-head h2{font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:2px}
+.srv-rule{display:block;width:70px;height:4px;background:var(--blue);margin:14px auto 0;border-radius:2px}
+.srv-head p{max-width:760px;margin:16px auto 0;font-size:16px;line-height:1.6;color:#5a6b7b}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.srv-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 6px 22px rgba(9,33,67,.10);
+  display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.srv-card:hover{transform:translateY(-5px);box-shadow:0 14px 34px rgba(9,33,67,.18)}
+.srv-card-img{aspect-ratio:16/10;overflow:hidden;background:#1a2535}
+.srv-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.srv-card:hover .srv-card-img img{transform:scale(1.06)}
+.srv-card-body{padding:20px 22px 24px}
+.srv-card-body h3{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;position:relative;padding-bottom:10px}
+.srv-card-body h3::after{content:'';position:absolute;left:0;bottom:0;width:38px;height:3px;background:var(--blue)}
+.srv-card-body p{font-size:14.5px;line-height:1.55;color:#5a6b7b}
 
 /* ===================== EMPRESA ===================== */
 .empresa{position:relative;min-height:calc(100vh - 76px);overflow:hidden;background:#eef0f3}
@@ -211,6 +231,7 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
   .shop-side{width:100%}
   .prod-grid{grid-template-columns:repeat(2,1fr)}
   .shop-cats{grid-template-columns:repeat(5,1fr)}
+  .srv-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:900px){
   .panels--2{grid-template-columns:1fr;height:auto}
@@ -229,4 +250,7 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
   .hero{height:240px}
   .hero-text{padding:0 24px}
   .hero-text h1,.hero-text h2{font-size:24px}
+  .srv-grid{grid-template-columns:1fr}
+  .srv-head h2{font-size:30px}
+  .srv{padding:40px 18px 50px}
 }

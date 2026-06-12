@@ -72,6 +72,29 @@ return [
     'ELECTRÓGENOS' => 'SETS',
     'EXCAVADORAS'  => 'EXCAVATORS',
 
+    /* ---------- Servicio: detalle ---------- */
+    'Nuestros Servicios' => 'Our Services',
+    'Mantenimiento e instalación multimarca con la mejor relación costo–beneficio.'
+        => 'Multi-brand maintenance and installation with the best cost–benefit ratio.',
+    'Mantenimiento, reparación e instalación de motores diésel multimarca, con repotenciación y puesta a punto para máximo rendimiento.'
+        => 'Maintenance, repair and installation of multi-brand diesel engines, with repowering and tuning for maximum performance.',
+    'Diagnóstico y reparación de bombas, cilindros, válvulas y mangueras hidráulicas, garantizando presión y respuesta óptimas.'
+        => 'Diagnosis and repair of hydraulic pumps, cylinders, valves and hoses, ensuring optimal pressure and response.',
+    'Instalación y mantenimiento de tomas de fuerza (PTO) para acoplar y operar equipos auxiliares con seguridad.'
+        => 'Installation and maintenance of power take-offs (PTO) to safely couple and operate auxiliary equipment.',
+    'Servicio integral de transmisiones manuales y automáticas: ajuste, cambio de componentes y pruebas de funcionamiento.'
+        => 'Complete service for manual and automatic transmissions: adjustment, component replacement and operation testing.',
+    'Mantenimiento preventivo y correctivo de grupos electrógenos para asegurar energía continua y confiable.'
+        => 'Preventive and corrective maintenance of generator sets to ensure continuous, reliable power.',
+    'Diseño, instalación y mantenimiento de tableros eléctricos y de control bajo estándares de seguridad.'
+        => 'Design, installation and maintenance of electrical and control panels under safety standards.',
+    'Instalación y mantenimiento de sistemas de iluminación industrial eficientes y de larga duración.'
+        => 'Installation and maintenance of efficient, long-lasting industrial lighting systems.',
+    'Implementación y medición de sistemas de puesta a tierra para proteger a las personas y los equipos.'
+        => 'Implementation and measurement of grounding systems to protect people and equipment.',
+    'Instalación y configuración de cámaras de seguridad y videovigilancia para tus instalaciones.'
+        => 'Installation and configuration of security cameras and video surveillance for your facilities.',
+
     /* ---------- Empresa ---------- */
     'Sucursales'      => 'Branches',
     'Nosotros'        => 'About Us',

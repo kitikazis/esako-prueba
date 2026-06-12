@@ -92,6 +92,22 @@ final class SiteData
         ];
     }
 
+    /** Detalle de cada servicio (imagen + descripción) */
+    public static function servicios(): array
+    {
+        return [
+            ['t' => 'Motores',              'img' => self::IMG . '2021/08/6.jpg',      'desc' => 'Mantenimiento, reparación e instalación de motores diésel multimarca, con repotenciación y puesta a punto para máximo rendimiento.'],
+            ['t' => 'Sistemas Hidráulicos', 'img' => self::IMG . '2025/10/4-2.jpg',    'desc' => 'Diagnóstico y reparación de bombas, cilindros, válvulas y mangueras hidráulicas, garantizando presión y respuesta óptimas.'],
+            ['t' => 'Toma de Fuerza',       'img' => self::IMG . '2025/10/4-10.jpg',   'desc' => 'Instalación y mantenimiento de tomas de fuerza (PTO) para acoplar y operar equipos auxiliares con seguridad.'],
+            ['t' => 'Transmisiones',        'img' => self::IMG . '2025/10/9-1.jpg',     'desc' => 'Servicio integral de transmisiones manuales y automáticas: ajuste, cambio de componentes y pruebas de funcionamiento.'],
+            ['t' => 'Grupos Electrógenos',  'img' => self::IMG . '2025/10/7.jpg',       'desc' => 'Mantenimiento preventivo y correctivo de grupos electrógenos para asegurar energía continua y confiable.'],
+            ['t' => 'Tableros Eléctricos',  'img' => self::IMG . '2025/10/8-1.jpg',     'desc' => 'Diseño, instalación y mantenimiento de tableros eléctricos y de control bajo estándares de seguridad.'],
+            ['t' => 'Luminarias',           'img' => self::IMG . '2025/10/3-7.jpg',     'desc' => 'Instalación y mantenimiento de sistemas de iluminación industrial eficientes y de larga duración.'],
+            ['t' => 'Puesta a Tierra',      'img' => self::IMG . '2025/10/1-29.jpg',    'desc' => 'Implementación y medición de sistemas de puesta a tierra para proteger a las personas y los equipos.'],
+            ['t' => 'Cámaras de Seguridad', 'img' => self::IMG . '2025/10/5-5.jpg',     'desc' => 'Instalación y configuración de cámaras de seguridad y videovigilancia para tus instalaciones.'],
+        ];
+    }
+
     /** Paneles del hero de Servicio */
     public static function servicioPanels(): array
     {
