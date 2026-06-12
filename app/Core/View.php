@@ -41,10 +41,17 @@ final class View
         return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
     }
 
-    /** Ruta base de assets (raíz del sitio) */
+    /**
+     * Ruta a un asset con "cache-busting": añade ?v=<fecha-de-modificación>.
+     * Así el navegador cachea el archivo a largo plazo, pero cuando lo
+     * actualizas la URL cambia y el usuario recibe la última versión.
+     */
     public static function asset(string $path): string
     {
-        return '/assets/' . ltrim($path, '/');
+        $rel  = '/assets/' . ltrim($path, '/');
+        $file = BASE_PATH . $rel;
+        $ver  = is_file($file) ? (string) filemtime($file) : (string) time();
+        return $rel . '?v=' . $ver;
     }
 
     /** URL interna */

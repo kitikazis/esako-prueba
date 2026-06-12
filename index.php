@@ -49,6 +49,13 @@ if (isset($_GET['lang'])) {
 }
 Lang::boot();
 
+/* El HTML siempre fresco: el navegador revalida cada carga, así el usuario
+   siempre recibe la última versión (que referencia los assets versionados). */
+if (!headers_sent()) {
+    header('Cache-Control: no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+}
+
 /** Helper global de traducción disponible en todas las vistas. */
 function t(string $es): string
 {
