@@ -1422,27 +1422,7 @@
     else document.addEventListener("DOMContentLoaded", fn);
   }
 
-  /* ---- 1) Floating WhatsApp button ---- */
-  ready(function () {
-    if (document.getElementById("esako-fab-wa")) return;
-    var a = document.createElement("a");
-    a.id = "esako-fab-wa";
-    a.href = "https://wa.link/esako";
-    a.target = "_blank";
-    a.title = "WhatsApp";
-    a.setAttribute("aria-label", "WhatsApp");
-    a.innerHTML = '<i class="fab fa-whatsapp"></i>';
-    a.style.cssText =
-      "position:fixed;right:20px;bottom:38px;z-index:99998;width:58px;height:58px;" +
-      "border-radius:50%;background:#25d366;color:#fff;display:flex;align-items:center;" +
-      "justify-content:center;font-size:30px;text-decoration:none;" +
-      "box-shadow:0 4px 16px rgba(0,0,0,0.3);transition:transform .2s;";
-    a.onmouseenter = function () { a.style.transform = "scale(1.08)"; };
-    a.onmouseleave = function () { a.style.transform = "scale(1)"; };
-    document.body.appendChild(a);
-  });
-
-  /* ---- 2) ES / EN toggle (Google Translate) ---- */
+  /* ---- ES / EN toggle (Google Translate) ---- */
   window.setLang = function (l) {
     var h = location.hostname;
     document.cookie = "googtrans=/es/" + l + ";path=/";
