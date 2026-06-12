@@ -12,9 +12,10 @@ final class SolucionesController extends Controller
     public function index(): void
     {
         $this->view('soluciones', [
-            'title'  => 'ESAKO — Soluciones',
-            'active' => 'soluciones',
-            'panels' => SiteData::solucionesPanels(),
+            'title'     => 'ESAKO — Soluciones',
+            'active'    => 'soluciones',
+            'panels'    => SiteData::solucionesPanels(),
+            'soluciones'=> SiteData::solucionesDetalle(),
         ]);
     }
 }

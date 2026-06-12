@@ -95,6 +95,31 @@ return [
     'Instalación y configuración de cámaras de seguridad y videovigilancia para tus instalaciones.'
         => 'Installation and configuration of security cameras and video surveillance for your facilities.',
 
+    /* ---------- Soluciones: detalle ---------- */
+    'Nuestras Soluciones' => 'Our Solutions',
+    'Productos y soluciones integrales para tu operación, con la mejor relación costo–beneficio.'
+        => 'Comprehensive products and solutions for your operation, with the best cost–benefit ratio.',
+    'Venta de motores diésel multimarca, nuevos y repotenciados, para todo tipo de aplicación industrial.'
+        => 'Sale of multi-brand diesel engines, new and repowered, for all types of industrial applications.',
+    'Transmisiones y componentes para vehículos y maquinaria pesada, con garantía y soporte técnico.'
+        => 'Transmissions and components for vehicles and heavy machinery, with warranty and technical support.',
+    'Tomas de fuerza (PTO) y kits de acople para operar equipos auxiliares de forma segura.'
+        => 'Power take-offs (PTO) and coupling kits to safely operate auxiliary equipment.',
+    'Grupos electrógenos de diferentes potencias para respaldo y operación continua de energía.'
+        => 'Generator sets of different power ratings for backup and continuous power operation.',
+    'Tableros de control y transferencia automática para motores y grupos electrógenos.'
+        => 'Control and automatic transfer panels for engines and generator sets.',
+    'Excavadoras y maquinaria pesada para proyectos de construcción y minería.'
+        => 'Excavators and heavy machinery for construction and mining projects.',
+    'Repuestos originales y alternativos para motores, transmisiones y equipos industriales.'
+        => 'Original and aftermarket spare parts for engines, transmissions and industrial equipment.',
+    'Filtros de aceite, aire, combustible y separadores agua/combustible de alta eficiencia.'
+        => 'High-efficiency oil, air, fuel and water/fuel separator filters.',
+    'Aceites y lubricantes para motor, sistema hidráulico y transmisión de marcas líderes.'
+        => 'Engine, hydraulic and transmission oils and lubricants from leading brands.',
+    'Refrigerantes y anticongelantes para proteger el sistema de enfriamiento del motor.'
+        => 'Coolants and antifreeze to protect the engine cooling system.',
+
     /* ---------- Empresa ---------- */
     'Sucursales'      => 'Branches',
     'Nosotros'        => 'About Us',

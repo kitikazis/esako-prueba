@@ -117,6 +117,23 @@ final class SiteData
         ];
     }
 
+    /** Detalle de cada solución (imagen + descripción) */
+    public static function solucionesDetalle(): array
+    {
+        return [
+            ['t' => 'Motores Diesel',        'img' => self::IMG . '2021/08/6.jpg',            'desc' => 'Venta de motores diésel multimarca, nuevos y repotenciados, para todo tipo de aplicación industrial.'],
+            ['t' => 'Transmisiones',         'img' => self::IMG . '2025/10/9-1.jpg',          'desc' => 'Transmisiones y componentes para vehículos y maquinaria pesada, con garantía y soporte técnico.'],
+            ['t' => 'Toma de Fuerza',        'img' => self::IMG . '2025/10/4-10.jpg',         'desc' => 'Tomas de fuerza (PTO) y kits de acople para operar equipos auxiliares de forma segura.'],
+            ['t' => 'Grupos Electrógenos',   'img' => self::IMG . '2025/10/7.jpg',            'desc' => 'Grupos electrógenos de diferentes potencias para respaldo y operación continua de energía.'],
+            ['t' => 'Tableros para Motores', 'img' => self::IMG . '2025/10/8-1.jpg',          'desc' => 'Tableros de control y transferencia automática para motores y grupos electrógenos.'],
+            ['t' => 'Excavadoras',           'img' => self::IMG . '2025/10/9.jpg',            'desc' => 'Excavadoras y maquinaria pesada para proyectos de construcción y minería.'],
+            ['t' => 'Repuestos',             'img' => self::IMG . '2025/09/5.jpg',            'desc' => 'Repuestos originales y alternativos para motores, transmisiones y equipos industriales.'],
+            ['t' => 'Filtros',               'img' => self::IMG . '2025/10/11-768x768.jpg',   'desc' => 'Filtros de aceite, aire, combustible y separadores agua/combustible de alta eficiencia.'],
+            ['t' => 'Aceites',               'img' => self::IMG . '2025/10/6-1-800x800.jpg',  'desc' => 'Aceites y lubricantes para motor, sistema hidráulico y transmisión de marcas líderes.'],
+            ['t' => 'Refrigerantes',         'img' => self::IMG . '2025/10/5-800x800.jpg',    'desc' => 'Refrigerantes y anticongelantes para proteger el sistema de enfriamiento del motor.'],
+        ];
+    }
+
     /** Paneles del hero de Soluciones */
     public static function solucionesPanels(): array
     {
