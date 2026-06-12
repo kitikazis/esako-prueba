@@ -92,34 +92,34 @@
     });
   }
 
-  /* ----------------- IDIOMA (Google Translate) ----------------- */
+  /* ----------------- IDIOMA (Google Translate) -----------------
+     La página es server-rendered: el HTML completo está presente al cargar.
+     Por eso usamos cookie + recarga en AMBOS sentidos; Google Translate
+     lee la cookie "googtrans" al iniciar y aplica el idioma de forma fiable.
+       /es/en  → inglés
+       /es/es  → español (original, sin traducir)
+  */
   function initLang() {
-    var lang = 'es';
-    try { lang = localStorage.getItem('esako_lang') || 'es'; } catch (e) {}
-
-    function applyEN(tries) {
-      var c = document.querySelector('.goog-te-combo');
-      if (c) { c.value = 'en'; c.dispatchEvent(new Event('change')); return; }
-      if ((tries || 0) < 40) setTimeout(function () { applyEN((tries || 0) + 1); }, 250);
-    }
-    window.setLang = function (l) {
+    function setCookie(val) {
       var h = location.hostname;
-      try { localStorage.setItem('esako_lang', l); } catch (e) {}
-      if (l === 'en') {
-        document.cookie = 'googtrans=/es/en;path=/';
-        document.cookie = 'googtrans=/es/en;path=/;domain=' + h;
-        document.cookie = 'googtrans=/es/en;path=/;domain=.' + h;
-        applyEN(0);
-      } else {
-        var del = 'googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
-        document.cookie = del;
-        document.cookie = del + ';domain=' + h;
-        document.cookie = del + ';domain=.' + h;
-        location.reload();
-      }
+      // limpia cualquier valor previo en todas las variantes de dominio
+      var kill = 'googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      document.cookie = kill;
+      document.cookie = kill + ';domain=' + h;
+      document.cookie = kill + ';domain=.' + h;
+      // fija el nuevo valor
+      document.cookie = 'googtrans=' + val + ';path=/';
+      document.cookie = 'googtrans=' + val + ';path=/;domain=' + h;
+      document.cookie = 'googtrans=' + val + ';path=/;domain=.' + h;
+    }
+
+    window.setLang = function (l) {
+      setCookie('/es/' + (l === 'en' ? 'en' : 'es'));
+      try { localStorage.setItem('esako_lang', l === 'en' ? 'en' : 'es'); } catch (e) {}
+      location.reload();
     };
 
-    // Carga el widget de Google Translate
+    // Carga el widget (lee la cookie googtrans y traduce automáticamente al cargar)
     window.googleTranslateElementInit = function () {
       try {
         new google.translate.TranslateElement(
@@ -131,9 +131,6 @@
     var s = document.createElement('script');
     s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     document.head.appendChild(s);
-
-    // Reaplica inglés si estaba elegido
-    if (lang === 'en') applyEN(0);
 
     // Clic en las banderas
     document.addEventListener('click', function (e) {
