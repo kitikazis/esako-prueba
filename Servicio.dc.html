@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&amp;family=Barlow:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @keyframes textReveal {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: hidden; }
+    body { font-family: 'Barlow', sans-serif; overflow-x: hidden; max-width: 100%; background: #fff; }
+    img { display: block; }
+    button { cursor: pointer; border: none; outline: none; }
+    a { cursor: pointer; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 7px; background: #092143; pointer-events: none; z-index: 99999; }
+    body::after  { content: ''; position: fixed; bottom: 0; left: 0; right: 0; height: 20px; background: #092143; pointer-events: none; z-index: 99999; }
+
+    /* ───────── RESPONSIVE ───────── */
+    .nav-burger { display: none; }
+    @media (max-width: 1100px) {
+      nav { padding: 0 14px !important; }
+      nav img { height: 46px !important; }
+      .nav-burger { display: flex !important; align-items: center; justify-content: center; width: 48px; height: 76px; color: #fff; font-size: 23px; cursor: pointer; }
+      .nav-links { display: none !important; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column !important; align-items: stretch !important; background: #092143; box-shadow: 0 10px 24px rgba(0,0,0,0.45); padding: 6px 0 10px; max-height: 82vh; overflow-y: auto; }
+      .nav-check:checked ~ .nav-links { display: flex !important; }
+      .nav-links > a, .nav-links > div > a { height: auto !important; padding: 13px 22px !important; width: 100%; justify-content: flex-start; font-size: 14px !important; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .nav-links > div { width: 100%; position: static !important; }
+      .nav-links > div > div { position: static !important; box-shadow: none !important; }
+    }
+    @media (max-width: 900px) {
+      .two-panel { grid-template-columns: 1fr !important; height: auto !important; }
+      .two-panel > div { min-height: 56vw !important; }
+      .two-panel h2 { font-size: 26px !important; }
+    }
+    @media (max-width: 560px) {
+      nav a { padding: 6px 6px !important; font-size: 11px !important; }
+      .two-panel h2 { font-size: 21px !important; }
+    }
+  </style>
+</helmet>
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav style="position: sticky; top: 0; z-index: 1000; background: #092143; height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.4);">
+
+  <!-- Logo -->
+  <a href="index.html" style="display: flex; align-items: center; text-decoration: none; flex-shrink: 0;">
+    <img src="https://esako.com.pe/wp-content/uploads/2025/10/logo-alta-calidad-1.gif" alt="ESAKO" style="height: 60px; object-fit: contain;" onerror="this.style.display='none'; this.nextSibling.style.display='flex';">
+    <div style="display: none; flex-direction: column; align-items: flex-start;">
+      <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; color: #fff; letter-spacing: 3px; line-height: 1;">ESAKO</span>
+      <span style="font-family: 'Barlow', sans-serif; font-size: 9px; color: #7ab4dc; letter-spacing: 1px; text-transform: uppercase;">MEJOR RELACION COSTO BENEFICIO</span>
+    </div>
+  </a>
+
+  <input type="checkbox" id="navchk" class="nav-check" style="display:none;">
+  <label for="navchk" class="nav-burger"><i class="fas fa-bars"></i></label>
+
+  <!-- Nav Links -->
+  <div class="nav-links" style="display: flex; align-items: center;">
+
+    <a href="index.html" style="color: #fff; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 16px; height: 76px; display: flex; align-items: center;" style-hover="color: #7ab4dc; background: rgba(255,255,255,0.05);">INICIO</a>
+
+    <a href="Nosotros.dc.html" style="color: #fff; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 16px; height: 76px; display: flex; align-items: center;" style-hover="color: #7ab4dc; background: rgba(255,255,255,0.05);">EMPRESA</a>
+
+    <!-- SERVICIO dropdown -->
+    <div style="position: relative;" onMouseEnter="{{ hoverServicio }}" onMouseLeave="{{ leaveDropdown }}">
+      <a href="Servicio.dc.html" style="color: #7ab4dc; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 16px; height: 76px; display: flex; align-items: center; gap: 5px; border-bottom: 3px solid #4a90d9;">
+        SERVICIO <span style="font-size: 9px; opacity: 0.7;">▼</span>
+      </a>
+      <div style="{{ ddServicio }}">
+        <span style="display: block; padding: 10px 18px 6px; color: #7ab4dc; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">MANTENIMIENTO E INSTALACIÓN DE:</span>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Motores</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Sistemas Hidráulicos</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Toma de Fuerza</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Transmisiones</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Grupos Electrógenos</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Tableros Eléctricos</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Luminarias</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Puesta a Tierra</a>
+        <a href="Servicio.dc.html" style="display: block; padding: 6px 18px 6px 28px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Cámaras de Seguridad</a>
+      </div>
+    </div>
+
+    <!-- SOLUCIONES dropdown -->
+    <div style="position: relative;" onMouseEnter="{{ hoverSoluciones }}" onMouseLeave="{{ leaveDropdown }}">
+      <a href="Soluciones.dc.html" style="color: #fff; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 16px; height: 76px; display: flex; align-items: center; gap: 5px;" style-hover="color: #7ab4dc; background: rgba(255,255,255,0.05);">
+        SOLUCIONES <span style="font-size: 9px; opacity: 0.7;">▼</span>
+      </a>
+      <div style="{{ ddSoluciones }}">
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Motores Diesel</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Transmisiones</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Toma de Fuerza</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Grupos Electrógenos</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Tableros para Motores</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Excavadoras</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Repuestos</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Filtros</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Aceites</a>
+        <a href="Soluciones.dc.html" style="display: block; padding: 8px 18px; color: #c8d8e8; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;" style-hover="color: #fff; background: rgba(255,255,255,0.07);">• Refrigerantes</a>
+      </div>
+    </div>
+
+    <a href="Oportunidades.dc.html" style="color: #fff; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 16px; height: 76px; display: flex; align-items: center;" style-hover="color: #7ab4dc; background: rgba(255,255,255,0.05);">OPORTUNIDADES</a>
+
+    <a href="#" style="color: #fff; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 16px; height: 76px; display: flex; align-items: center;" style-hover="color: #7ab4dc; background: rgba(255,255,255,0.05);">CLIENTES</a>
+
+    <a href="#" style="color: #fff; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 16px; height: 76px; display: flex; align-items: center;" style-hover="color: #7ab4dc; background: rgba(255,255,255,0.05);">USUARIOS</a>
+
+    <a href="#" style="color: #fff; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; padding: 0 14px; height: 76px; display: flex; align-items: center;" style-hover="color: #7ab4dc; background: rgba(255,255,255,0.05);">ESP / ING</a>
+
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO — TWO PANELS ════════════════════════ -->
+<div class="two-panel" style="display: grid; grid-template-columns: 1fr 1fr; width: 100%; height: calc(100vh - 76px);">
+
+  <!-- Left panel: Motores / Transmisiones / Toma de Fuerza -->
+  <div style="position: relative; background-image: linear-gradient(rgba(8,16,30,0.45), rgba(8,16,30,0.55)), url('https://esako.com.pe/wp-content/uploads/2025/10/2-4.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+    <div style="animation: textReveal 0.8s ease forwards; padding: 0 40px;">
+      <h2 style="font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; color: #fff; text-transform: uppercase; line-height: 1.25; letter-spacing: 1.5px; text-align: center; text-shadow: 0 2px 14px rgba(0,0,0,0.75);">SERVICIO TECNICO MULTIMARCA<br>DE MOTORES, TRANSMISIONES,<br>TOMA DE FUERZA Y MAS</h2>
+    </div>
+  </div>
+
+  <!-- Right panel: Grupos Electrógenos -->
+  <div style="position: relative; background-image: linear-gradient(rgba(8,16,30,0.40), rgba(8,16,30,0.50)), url('https://esako.com.pe/wp-content/uploads/2025/10/7.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+    <div style="animation: textReveal 0.95s ease forwards; padding: 0 40px;">
+      <h2 style="font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; color: #fff; text-transform: uppercase; line-height: 1.25; letter-spacing: 1.5px; text-align: center; text-shadow: 0 2px 14px rgba(0,0,0,0.75);">SERVICIO TECNICO<br>MULTIMARCA DE GRUPOS<br>ELECTROGENOS</h2>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════ FLOATING RIGHT SIDEBAR ════════════════════ -->
+<div style="position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 998; display: flex; flex-direction: column;">
+  <a href="Tienda.dc.html" title="Tienda" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #243e58;">
+    <i class="fas fa-shopping-cart"></i>
+  </a>
+  <a href="https://wa.link/esako" target="_blank" title="WhatsApp" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #25d366;">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <a href="#" title="Brochure" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #243e58;">
+    <i class="fas fa-file-pdf"></i>
+  </a>
+  <a href="#" title="Libro de Reclamaciones" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #243e58;">
+    <i class="fas fa-book"></i>
+  </a>
+  <a href="https://www.youtube.com/@esakoglobal" target="_blank" title="YouTube" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #ff0000;">
+    <i class="fab fa-youtube"></i>
+  </a>
+  <a href="https://www.facebook.com/esako" target="_blank" title="Facebook" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #1877f2;">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  <a href="https://www.instagram.com/esako.global" target="_blank" title="Instagram" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #e1306c;">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://www.linkedin.com/in/esako-global-5b2090395" target="_blank" title="LinkedIn" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.12);" style-hover="background: #0a66c2;">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+  <a href="https://www.tiktok.com/@esako71" target="_blank" title="TikTok" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #092143; color: #fff; text-decoration: none; font-size: 16px;" style-hover="background: #010101;">
+    <i class="fab fa-tiktok"></i>
+  </a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dropdown: null };
+
+  componentWillUnmount() {
+    clearTimeout(this._leaveTimer);
+  }
+
+  renderVals() {
+    const { dropdown } = this.state;
+    const BASE = 'https://esako.com.pe/wp-content/uploads/';
+
+    const coverStyle = { width: '100%', height: '100%', objectFit: 'cover', display: 'block' };
+    const mkImg = (url, alt) => React.createElement('img', { src: url, alt: alt, style: coverStyle });
+
+    const services = [
+      { tag: 'MANTENIMIENTO', title: 'Motor Marino',            imgEl: mkImg(BASE + '2025/10/1-4.jpg', 'Motor Marino') },
+      { tag: 'MANTENIMIENTO', title: 'Motor Automotriz',        imgEl: mkImg(BASE + '2025/10/2-4.jpg', 'Motor Automotriz') },
+      { tag: 'MANTENIMIENTO', title: 'Motor Underground',       imgEl: mkImg(BASE + '2025/10/3-3.jpg', 'Motor Underground') },
+      { tag: 'MANTENIMIENTO', title: 'Motor Construcción',      imgEl: mkImg(BASE + '2025/10/4-3.jpg', 'Motor Construcción') },
+      { tag: 'MANTENIMIENTO', title: 'Grupos Electrógenos',     imgEl: mkImg(BASE + '2025/10/7.jpg',   'Grupos Electrógenos') },
+      { tag: 'VENTA',         title: 'Consumibles y Mangueras', imgEl: mkImg(BASE + '2025/09/5.jpg',   'Consumibles') },
+      { tag: 'MANTENIMIENTO', title: 'Sistemas Hidráulicos',    imgEl: mkImg(BASE + '2025/10/4-2.jpg', 'Hidráulicos') },
+      { tag: 'VENTA',         title: 'Excavadoras',             imgEl: mkImg(BASE + '2025/10/9.jpg',   'Excavadoras') },
+      { tag: 'VENTA',         title: 'Motores Diesel',          imgEl: mkImg(BASE + '2021/08/6.jpg',   'Motores Diesel') },
+      { tag: 'VENTA',         title: 'Grupos Electrógenos',     imgEl: mkImg(BASE + '2025/10/8-1.jpg', 'Grupos Electrógenos') },
+      { tag: 'MANT. Y VENTA', title: 'Tableros Eléctricos',     imgEl: mkImg(BASE + '2025/10/8-1.jpg', 'Tableros') },
+      { tag: 'MANT. Y VENTA', title: 'Transmisiones',           imgEl: mkImg(BASE + '2025/10/9-1.jpg', 'Transmisiones') }
+    ];
+
+    const maintList = [
+      'Motores', 'Sistemas Hidráulicos', 'Toma de Fuerza',
+      'Transmisiones', 'Grupos Electrógenos', 'Tableros Eléctricos',
+      'Luminarias', 'Puesta a Tierra', 'Cámaras de Seguridad'
+    ];
+
+    const ddBase = {
+      position: 'absolute', top: '100%', left: 0,
+      background: '#172333',
+      minWidth: '260px',
+      padding: '6px 0 10px',
+      zIndex: 9999,
+      boxShadow: '0 8px 28px rgba(0,0,0,0.55)',
+      borderTop: '3px solid #4a90d9'
+    };
+
+    return {
+      services,
+      maintList,
+      ddServicio:   { ...ddBase, display: dropdown === 'servicio'   ? 'block' : 'none' },
+      ddSoluciones: { ...ddBase, display: dropdown === 'soluciones' ? 'block' : 'none' },
+      hoverServicio:   () => { clearTimeout(this._leaveTimer); this.setState({ dropdown: 'servicio'   }); },
+      hoverSoluciones: () => { clearTimeout(this._leaveTimer); this.setState({ dropdown: 'soluciones' }); },
+      leaveDropdown:   () => { this._leaveTimer = setTimeout(() => this.setState({ dropdown: null }), 180); }
+    };
+  }
+}
+</script>
+</body>
+</html>
