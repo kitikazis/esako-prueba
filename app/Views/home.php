@@ -4,13 +4,13 @@
 <div class="hero" data-hero>
   <?php foreach ($slides as $i => $s): ?>
     <div class="hero-slide<?= $i === 0 ? ' is-active' : '' ?>"
-         data-title="<?= View::e($s['title']) ?>" data-sub="<?= View::e($s['sub']) ?>"
+         data-title="<?= View::e(t($s['title'])) ?>" data-sub="<?= View::e(t($s['sub'])) ?>"
          style="background-image:linear-gradient(to right,rgba(4,10,22,.80) 0%,rgba(4,10,22,.40) 52%,rgba(4,10,22,.10) 100%),url('<?= View::e($s['img']) ?>')"></div>
   <?php endforeach; ?>
 
   <div class="hero-text">
-    <h1 data-hero-title><?= View::e($slides[0]['title']) ?></h1>
-    <h2 data-hero-sub><?= View::e($slides[0]['sub']) ?></h2>
+    <h1 data-hero-title><?= View::e(t($slides[0]['title'])) ?></h1>
+    <h2 data-hero-sub><?= View::e(t($slides[0]['sub'])) ?></h2>
   </div>
 
   <button class="hero-arrow prev" data-hero-prev aria-label="Anterior">‹</button>
@@ -28,8 +28,8 @@
   <div class="carousel-track" data-carousel-track>
     <?php foreach ($carousel as $c): ?>
       <div class="carousel-item">
-        <img src="<?= View::e($c['img']) ?>" alt="<?= View::e($c['title']) ?>" loading="lazy">
-        <div class="carousel-cap"><span><?= View::e($c['title']) ?></span></div>
+        <img src="<?= View::e($c['img']) ?>" alt="<?= View::e(t($c['title'])) ?>" loading="lazy">
+        <div class="carousel-cap"><span><?= View::e(t($c['title'])) ?></span></div>
       </div>
     <?php endforeach; ?>
   </div>

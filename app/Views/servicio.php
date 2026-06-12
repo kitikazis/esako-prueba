@@ -5,7 +5,7 @@
   <?php foreach ($panels as $p): ?>
     <div class="panel" style="background-image:linear-gradient(rgba(8,16,30,.45),rgba(8,16,30,.55)),url('<?= View::e($p['img']) ?>')">
       <h2 class="panel-title">
-        <?php foreach ($p['lines'] as $k => $line): ?><?= $k ? '<br>' : '' ?><?= View::e($line) ?><?php endforeach; ?>
+        <?php foreach ($p['lines'] as $k => $line): ?><?= $k ? '<br>' : '' ?><?= View::e(t($line)) ?><?php endforeach; ?>
       </h2>
     </div>
   <?php endforeach; ?>

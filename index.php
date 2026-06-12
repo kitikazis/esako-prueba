@@ -32,6 +32,28 @@ spl_autoload_register(static function (string $class): void {
 });
 
 use App\Core\Router;
+use App\Core\Lang;
+
+/* ---------- Idioma (i18n propio) ----------
+   ?lang=es|en  →  guarda cookie y redirige a la URL limpia (sin query). */
+if (isset($_GET['lang'])) {
+    $l = ($_GET['lang'] === 'en') ? 'en' : 'es';
+    setcookie('lang', $l, [
+        'expires'  => time() + 31536000,
+        'path'     => '/',
+        'samesite' => 'Lax',
+    ]);
+    $path = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+    header('Location: ' . ($path !== false ? $path : '/'));
+    exit;
+}
+Lang::boot();
+
+/** Helper global de traducción disponible en todas las vistas. */
+function t(string $es): string
+{
+    return Lang::t($es);
+}
 
 /* ---------- Arranque ---------- */
 $router = new Router();

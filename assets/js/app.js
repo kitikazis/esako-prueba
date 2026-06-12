@@ -10,7 +10,6 @@
     initHero();
     initCarousel();
     initNav();
-    initLang();
   }
 
   /* ----------------- HERO SLIDER ----------------- */
@@ -92,50 +91,6 @@
     });
   }
 
-  /* ----------------- IDIOMA (Google Translate) -----------------
-     La página es server-rendered: el HTML completo está presente al cargar.
-     Por eso usamos cookie + recarga en AMBOS sentidos; Google Translate
-     lee la cookie "googtrans" al iniciar y aplica el idioma de forma fiable.
-       /es/en  → inglés
-       /es/es  → español (original, sin traducir)
-  */
-  function initLang() {
-    function setCookie(val) {
-      var h = location.hostname;
-      // limpia cualquier valor previo en todas las variantes de dominio
-      var kill = 'googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
-      document.cookie = kill;
-      document.cookie = kill + ';domain=' + h;
-      document.cookie = kill + ';domain=.' + h;
-      // fija el nuevo valor
-      document.cookie = 'googtrans=' + val + ';path=/';
-      document.cookie = 'googtrans=' + val + ';path=/;domain=' + h;
-      document.cookie = 'googtrans=' + val + ';path=/;domain=.' + h;
-    }
-
-    window.setLang = function (l) {
-      setCookie('/es/' + (l === 'en' ? 'en' : 'es'));
-      try { localStorage.setItem('esako_lang', l === 'en' ? 'en' : 'es'); } catch (e) {}
-      location.reload();
-    };
-
-    // Carga el widget (lee la cookie googtrans y traduce automáticamente al cargar)
-    window.googleTranslateElementInit = function () {
-      try {
-        new google.translate.TranslateElement(
-          { pageLanguage: 'es', includedLanguages: 'en,es', autoDisplay: false },
-          'google_translate_element'
-        );
-      } catch (e) {}
-    };
-    var s = document.createElement('script');
-    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    document.head.appendChild(s);
-
-    // Clic en las banderas
-    document.addEventListener('click', function (e) {
-      var el = e.target.closest ? e.target.closest('[data-lang]') : null;
-      if (el) { e.preventDefault(); window.setLang(el.getAttribute('data-lang')); }
-    });
-  }
+  /* El idioma (ES/EN) se maneja 100% en el servidor (cookie "lang" + ?lang=).
+     Las banderas son enlaces normales; no se necesita JavaScript aquí. */
 })();

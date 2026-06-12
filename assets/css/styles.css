@@ -50,6 +50,8 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .lang-switch a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;
   font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px}
 .lang-switch a:hover{color:var(--blue-soft)}
+.lang-switch a{opacity:.65}
+.lang-switch a.is-active{opacity:1;color:var(--blue-soft)}
 .lang-switch img{width:24px;height:18px;border-radius:2px;display:block}
 
 /* ===================== HERO (inicio) ===================== */
@@ -184,11 +186,6 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .notfound{text-align:center;padding:120px 20px}
 .notfound h1{font-family:'Barlow Condensed',sans-serif;font-size:90px;color:var(--navy)}
 .notfound p{margin:8px 0 24px;color:#666}
-/* Ocultar barra de Google Translate */
-.goog-te-banner-frame,.skiptranslate>iframe{display:none!important}
-body{top:0!important}
-#goog-gt-tt,.goog-tooltip{display:none!important}
-font font{background:transparent!important;box-shadow:none!important}
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width:1100px){
