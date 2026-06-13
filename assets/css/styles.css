@@ -3,9 +3,12 @@
    =================================================================== */
 :root{
   --navy:#092143;
-  --blue:#4a90d9;
+  --blue:#4a90d9;          /* acento decorativo (reglas, hovers) */
+  --blue-link:#2f6fb0;     /* azul accesible para texto/links (≈4.6:1 sobre blanco) */
   --blue-soft:#7ab4dc;
   --ink:#2a2a2a;
+  --muted:#5a6b7b;         /* texto secundario (≈4.8:1) */
+  --muted-2:#6b7178;       /* metadatos (categorías) accesible */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden}
@@ -121,27 +124,95 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .empresa-wrap{position:relative;max-width:1300px;margin:0 auto;padding:26px 32px 60px}
 .empresa-title{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:600;color:#3a3a3a;letter-spacing:2px;
   text-transform:uppercase;margin:6px 0 18px 210px}
-.empresa-row{display:flex;gap:34px;align-items:flex-start}
-.empresa-map{position:relative;flex-shrink:0;width:440px}
-.empresa-map img{width:100%;height:auto}
-.empresa-pin{position:absolute;font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:600;color:#4a4a4a;letter-spacing:1px}
-.empresa-pin.pin-0{top:40%;left:-2%}
-.empresa-pin.pin-1{top:58%;left:6%}
+.empresa-row{display:flex;gap:38px;align-items:center}
+.empresa-left{flex:0 0 auto;display:flex;flex-direction:row;align-items:center;gap:26px}
+.empresa-map{position:relative;flex:0 0 auto;width:clamp(240px,26vw,330px);display:flex;justify-content:center}
+
+/* Mapa departamental SVG de Perú (vertical, dinámico, tamaño mediano) */
+.peru-map{width:100%;height:auto;max-height:62vh;display:block;overflow:visible;
+  filter:drop-shadow(0 14px 30px rgba(9,33,67,.30))}
+.region{fill:var(--navy);stroke:#f4f6f9;stroke-width:1;vector-effect:non-scaling-stroke;
+  cursor:pointer;transition:fill .2s,opacity .2s}
+.region.is-branch{fill:#e8a93c}
+/* Hover: la región apuntada se ilumina; las demás (no-sucursal) se atenúan */
+.peru-map:hover .region:not(.is-branch):not(:hover){opacity:.72}
+.region:hover{fill:var(--blue)}
+.region.is-branch:hover{fill:#ffc266}
+
+/* Tooltip del mapa (sigue al cursor) */
+.map-tip{position:absolute;z-index:60;pointer-events:none;transform:translate(-50%,-138%);
+  background:var(--navy);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:.6px;text-transform:uppercase;padding:5px 11px;border-radius:5px;white-space:nowrap;
+  box-shadow:0 6px 18px rgba(9,33,67,.4)}
+.map-tip::after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--navy)}
+.map-tip[hidden]{display:none}
+
+/* Marcadores de sucursal (punto blanco con núcleo navy sobre la región naranja) */
+.pin{cursor:pointer}
+.pin-dot{fill:#fff;stroke:var(--navy);stroke-width:1.5;transition:r .2s}
+.pin-pulse{fill:#fff;transform-box:fill-box;transform-origin:center;
+  animation:pin-pulse 2.4s ease-out infinite;pointer-events:none}
+.pin-core{fill:var(--navy)}
+.pin-label{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;letter-spacing:.5px;
+  fill:#fff;paint-order:stroke;stroke:var(--navy);stroke-width:4px;stroke-linejoin:round;
+  dominant-baseline:middle;transition:fill .2s}
+.pin:hover .pin-dot,.pin:focus-visible .pin-dot{r:11}
+.pin:hover .pin-label,.pin:focus-visible .pin-label{fill:#ffe6c2}
+.pin:focus-visible{outline:none}
+.pin:focus-visible .pin-dot{stroke:var(--blue);stroke-width:3}
+@keyframes pin-pulse{0%{transform:scale(1);opacity:.6}70%{opacity:0}100%{transform:scale(3.2);opacity:0}}
+@media (prefers-reduced-motion:reduce){.pin-pulse{animation:none;opacity:0}}
+
+/* Sectores que atendemos (al costado izquierdo del mapa) */
+.sectores{order:-1;flex-shrink:0;text-align:left}
+.sectores-h{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:1.2px;margin-bottom:18px;line-height:1.2;max-width:190px}
+.sectores-grid{display:grid;grid-template-columns:repeat(2,max-content);justify-content:start;gap:20px 22px}
+.sector{display:flex;flex-direction:column;align-items:center;gap:9px}
+.sector-img{width:80px;height:80px;border-radius:50%;overflow:hidden;border:3px solid var(--blue);
+  box-shadow:0 4px 12px rgba(9,33,67,.18);transition:transform .2s,border-color .2s}
+.sector-img img{width:100%;height:100%;object-fit:cover}
+.sector:hover .sector-img{transform:translateY(-3px) scale(1.05);border-color:#e8a93c}
+.sector-lbl{font-family:'Barlow Condensed',sans-serif;font-size:12.5px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.6px}
+
 .empresa-text{flex:1;min-width:0;padding-top:8px}
 .empresa-text h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:1px;
   text-transform:uppercase;margin-bottom:12px}
 .empresa-text p{font-size:15.5px;line-height:1.6;color:#3f3f3f;margin-bottom:30px}
 
 /* ===================== OPORTUNIDADES ===================== */
-.oport{max-width:1600px;margin:0 auto;padding:22px 32px 26px}
-.oport-title{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;color:var(--ink);text-transform:uppercase;
-  letter-spacing:.5px;margin-bottom:14px}
-.oport-grid{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 26px;margin-bottom:30px}
-.oport-card{display:flex;flex-direction:column;align-items:center;cursor:pointer}
-.oport-card:hover{opacity:.88}
-.oport-card img{height:116px;width:auto}
-.oport-card figcaption{text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink);
-  text-transform:uppercase;letter-spacing:.4px;line-height:1.2;margin-top:9px;max-width:165px}
+.oport{max-width:1500px;margin:0 auto;padding:26px 32px 32px}
+.oport-block{margin-bottom:28px}
+.oport-block:last-child{margin-bottom:0}
+.oport-title{display:flex;align-items:center;gap:14px;font-family:'Barlow Condensed',sans-serif;font-size:20px;
+  font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px}
+.oport-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,var(--blue),rgba(74,144,217,0))}
+.oport-grid{display:flex;flex-wrap:wrap;align-items:stretch;gap:16px}
+
+/* Tarjeta con imagen uniforme (boletines / cursos) */
+.oport-card{flex:0 0 auto;width:200px;background:#fff;border-radius:10px;overflow:hidden;text-decoration:none;
+  box-shadow:0 4px 16px rgba(9,33,67,.10);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.oport-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(9,33,67,.18)}
+.oport-card-img{display:block;aspect-ratio:4/3;overflow:hidden;background:#0f1c2e}
+.oport-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.oport-card:hover .oport-card-img img{transform:scale(1.06)}
+.oport-cap{padding:10px 12px 13px;font-family:'Barlow Condensed',sans-serif;font-size:12.5px;font-weight:600;
+  color:var(--navy);text-transform:uppercase;letter-spacing:.4px;line-height:1.25;text-align:center}
+
+/* Tarjeta de empleo limpia (icono + título + CTA) */
+.job-card{flex:0 0 auto;width:235px;background:#fff;border-radius:10px;border:1px solid #e6ebf1;text-decoration:none;
+  box-shadow:0 4px 16px rgba(9,33,67,.08);padding:18px;display:flex;flex-direction:column;align-items:flex-start;
+  gap:11px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.job-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(9,33,67,.16);border-color:var(--blue)}
+.job-ico{width:42px;height:42px;border-radius:9px;background:rgba(74,144,217,.12);color:var(--blue-link);
+  display:flex;align-items:center;justify-content:center;font-size:18px}
+.job-t{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:var(--navy);
+  text-transform:uppercase;letter-spacing:.5px;line-height:1.2}
+.job-cta{margin-top:auto;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;
+  color:var(--blue-link);text-transform:uppercase;letter-spacing:.6px;display:inline-flex;align-items:center;gap:6px}
+.job-card:hover .job-cta{color:var(--navy)}
 
 /* ===================== TIENDA ===================== */
 .shop-cats{display:grid;grid-template-columns:repeat(9,1fr);gap:14px;max-width:1280px;margin:0 auto;padding:28px 24px 6px}
@@ -185,7 +256,7 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .prod-img img{width:100%;height:100%;object-fit:contain}
 .prod:hover .prod-img{opacity:.9}
 .prod-t{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--ink);text-transform:uppercase;line-height:1.2;margin-top:12px}
-.prod-cat{font-family:'Barlow Condensed',sans-serif;font-size:11.5px;font-weight:500;color:#9aa0a6;text-transform:uppercase;letter-spacing:.5px;line-height:1.3;margin-top:6px}
+.prod-cat{font-family:'Barlow Condensed',sans-serif;font-size:11.5px;font-weight:500;color:var(--muted-2);text-transform:uppercase;letter-spacing:.5px;line-height:1.3;margin-top:6px}
 .prod-price{font-size:17px;font-weight:700;color:var(--ink);margin-top:8px}
 .btn-cart{margin-top:12px;background:#e8a93c;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:12.5px;
   font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:11px 14px;border-radius:2px}
@@ -201,11 +272,176 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .fab-wa:hover{background:#1ebe5b;transform:scale(1.08)}
 
 /* ===================== VARIOS ===================== */
-.link{color:var(--blue);text-decoration:none}
-.link:hover{color:var(--navy)}
+.link{color:var(--blue-link);text-decoration:none}
+.link:hover{color:var(--navy);text-decoration:underline}
+
+/* Texto accesible solo para lectores de pantalla (SEO/a11y) */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Skip-link: salto al contenido por teclado (WCAG 2.4.1) */
+.skip-link{position:absolute;left:8px;top:-48px;z-index:100000;background:var(--navy);color:#fff;
+  padding:10px 16px;border-radius:0 0 6px 6px;font-family:'Barlow Condensed',sans-serif;
+  font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:top .18s}
+.skip-link:focus{top:0}
+
+/* Foco visible global por teclado (WCAG 2.4.7) */
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:2px}
 .notfound{text-align:center;padding:120px 20px}
 .notfound h1{font-family:'Barlow Condensed',sans-serif;font-size:90px;color:var(--navy)}
 .notfound p{margin:8px 0 24px;color:#666}
+
+/* ===================================================================
+   FRANJA DE PROPUESTA DE VALOR + SOCIAL PROOF (servicio/soluciones)
+   Recupera el "above-the-fold" sin romper la regla de una pantalla.
+   =================================================================== */
+.vstrip{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  background:var(--navy);color:#fff;padding:14px 28px;margin:0}
+.vstrip-main{display:flex;flex-direction:column;gap:4px;min-width:0}
+.vstrip-main h1,.vstrip-main .vstrip-h{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,2.4vh,24px);
+  font-weight:700;letter-spacing:.5px;line-height:1.1;color:#fff;text-transform:none}
+.vstrip-main p{font-size:clamp(12px,1.4vh,14px);color:#c8d8e8;line-height:1.3;margin:0}
+.vstrip-proof{display:flex;align-items:center;gap:18px;flex-shrink:0}
+.vstrip-proof .pf{display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.5px;color:#dfe9f3;white-space:nowrap}
+.vstrip-proof .pf i{color:var(--blue-soft);font-size:18px}
+.vstrip-cta{display:inline-flex;align-items:center;gap:8px;background:#e8a93c;color:#fff;
+  font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  padding:11px 22px;border-radius:3px;text-decoration:none;white-space:nowrap;transition:transform .15s,background .15s}
+.vstrip-cta:hover{background:#d9982c;transform:translateY(-2px)}
+
+/* CTA que se revela al pasar sobre la tarjeta (Von Restorff + Fitts) */
+.srv-cta{display:inline-flex;align-items:center;gap:6px;color:var(--blue-link);font-family:'Barlow Condensed',sans-serif;
+  font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-top:8px;
+  opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}
+.srv-card:hover .srv-cta,.srv-card:focus-within .srv-cta{opacity:1;transform:translateY(0)}
+
+/* Badge de social proof en productos */
+.prod{position:relative}
+.prod-badge{position:absolute;top:8px;left:8px;z-index:2;background:var(--navy);color:#fff;
+  font-family:'Barlow Condensed',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.8px;
+  text-transform:uppercase;padding:4px 9px;border-radius:2px}
+
+/* Micro-interacción: latido sutil del botón de WhatsApp */
+@keyframes wa-pulse{0%,100%{box-shadow:0 4px 18px rgba(0,0,0,.32)}
+  50%{box-shadow:0 4px 18px rgba(0,0,0,.32),0 0 0 12px rgba(37,211,102,.16)}}
+.fab-wa{animation:wa-pulse 7s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.fab-wa{animation:none}}
+
+/* ===================================================================
+   UNA SOLA PANTALLA — sin scroll (solo escritorio ≥1101px)
+   Usa 100svh + clamp() para que el contenido SE AJUSTE a la altura real
+   del viewport (1080p, 900px, 768px) sin recortes. En móvil/tablet el
+   contenido fluye y se desplaza con normalidad.
+   Umbral 1024px: cubre laptops y pantallas con escalado de Windows (125%).
+   =================================================================== */
+@media (min-width:1024px){
+  html,body{height:100%}
+  body{overflow:hidden}
+  /* Altura útil = viewport − nav (76) − franja inferior fija (20). svh = altura
+     "small viewport" (sin contar barras dinámicas): nunca recorta de más. */
+  .page{height:calc(100svh - 96px);overflow:hidden}
+
+  /* ---------- SERVICIO + SOLUCIONES (rejilla de tarjetas) ---------- */
+  .page--servicio,
+  .page--soluciones{display:flex;flex-direction:column}
+  .page--servicio .srv,
+  .page--soluciones .srv{flex:1;min-height:0;display:flex;flex-direction:column;
+    padding:clamp(10px,2vh,20px) 28px;max-width:1280px;width:100%;margin:0 auto}
+  .page--servicio .srv-head,
+  .page--soluciones .srv-head{margin-bottom:clamp(8px,1.6vh,16px)}
+  .page--servicio .srv-head h2,
+  .page--soluciones .srv-head h2{font-size:clamp(20px,3vh,28px);letter-spacing:1.5px}
+  .page--servicio .srv-rule,
+  .page--soluciones .srv-rule{margin-top:clamp(5px,1vh,10px)}
+  .page--servicio .srv-head p,
+  .page--soluciones .srv-head p{font-size:clamp(12px,1.5vh,15px);margin-top:clamp(5px,1vh,10px);line-height:1.4}
+  .page--servicio .srv-grid,
+  .page--soluciones .srv-grid{flex:1;min-height:0;gap:clamp(8px,1.5vh,18px);grid-auto-rows:1fr}
+  .page--servicio .srv-grid{grid-template-columns:repeat(3,1fr)}   /* 9 → 3×3 */
+  .page--soluciones .srv-grid{grid-template-columns:repeat(5,1fr)} /* 10 → 5×2 */
+  .page--servicio .srv-card,
+  .page--soluciones .srv-card{min-height:0}
+  .page--servicio .srv-card-img,
+  .page--soluciones .srv-card-img{flex:1;min-height:0;aspect-ratio:auto}
+  .page--servicio .srv-card-body,
+  .page--soluciones .srv-card-body{padding:clamp(7px,1.4vh,14px) 14px}
+  .page--servicio .srv-card-body h3,
+  .page--soluciones .srv-card-body h3{font-size:clamp(13px,1.9vh,17px);
+    margin-bottom:clamp(3px,.8vh,8px);padding-bottom:clamp(4px,.8vh,9px)}
+  .page--servicio .srv-card-body p,
+  .page--soluciones .srv-card-body p{font-size:clamp(11px,1.5vh,14px);line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .page--soluciones .srv-card-body h3{font-size:clamp(12px,1.7vh,15px)}
+  .page--soluciones .srv-card-body p{font-size:clamp(10px,1.3vh,12.5px)}
+  /* En pantallas bajas, oculta el CTA revelado para no robar altura */
+  @media (max-height:760px){.srv-cta{display:none}}
+
+  /* ---------- EMPRESA ---------- */
+  .page--empresa .empresa{height:100%;min-height:0;overflow:hidden}
+  /* wrap en columna: título arriba, fila ocupa el resto sin desbordar */
+  .page--empresa .empresa-wrap{height:100%;display:flex;flex-direction:column;
+    padding:clamp(10px,1.8vh,22px) 32px;overflow:hidden}
+  .page--empresa .empresa-title{flex:0 0 auto;margin:0 0 clamp(6px,1.2vh,12px) 0;
+    text-align:left;font-size:clamp(18px,2.6vh,26px)}
+  .page--empresa .empresa-row{flex:1;min-height:0;display:flex;gap:clamp(22px,3vw,44px);align-items:center}
+  /* izquierda = [sectores | mapa] en fila; el texto ocupa el resto a la derecha */
+  .page--empresa .empresa-left{flex:0 0 auto;height:100%;
+    display:flex;flex-direction:row;align-items:center;gap:clamp(16px,2vw,30px)}
+  .page--empresa .sectores{order:-1;flex:0 0 auto;align-self:center}
+  /* mapa MEDIANO: lo limita la altura (tope ~460px), el ancho lo sigue */
+  .page--empresa .empresa-map{flex:0 0 auto;height:100%;width:auto;display:flex;align-items:center;justify-content:center}
+  .page--empresa .peru-map{height:100%;width:auto;max-width:100%;max-height:clamp(300px,52vh,460px)}
+  .page--empresa .sectores-h{margin-bottom:clamp(10px,1.7vh,18px);font-size:clamp(12px,1.6vh,16px)}
+  .page--empresa .sectores-grid{grid-template-columns:repeat(2,max-content);
+    gap:clamp(12px,2.1vh,20px) clamp(12px,1.1vw,20px)}
+  .page--empresa .sector-img{width:clamp(50px,7vh,76px);height:clamp(50px,7vh,76px);border-width:3px}
+  .page--empresa .sector-lbl{font-size:clamp(10px,1.3vh,12.5px)}
+  /* columna de texto: llena el alto, sin desbordar */
+  .page--empresa .empresa-text{flex:1;min-width:0;height:100%;overflow:hidden;padding-top:2px}
+  .page--empresa .empresa-text h3{font-size:clamp(15px,2vh,20px);margin-bottom:clamp(3px,.7vh,8px)}
+  .page--empresa .empresa-text p{font-size:clamp(11.5px,1.45vh,14.5px);line-height:1.4;
+    margin-bottom:clamp(6px,1.3vh,14px)}
+
+  /* ---------- OPORTUNIDADES ---------- */
+  .page--oportunidades .oport{height:100%;display:flex;flex-direction:column;justify-content:center;
+    gap:clamp(12px,2.4vh,28px);padding:clamp(12px,2vh,28px) 32px;overflow:hidden;max-width:1500px}
+  .page--oportunidades .oport-block{margin:0}
+  .page--oportunidades .oport-title{font-size:clamp(14px,1.9vh,18px);margin-bottom:clamp(8px,1.4vh,16px)}
+  .page--oportunidades .oport-grid{gap:clamp(9px,1.4vh,16px)}
+  .page--oportunidades .oport-card{width:clamp(125px,11.5vw,185px)}
+  .page--oportunidades .oport-card-img{aspect-ratio:auto;height:clamp(66px,11vh,112px)}
+  .page--oportunidades .oport-cap{padding:clamp(6px,1vh,11px) 10px;font-size:clamp(9.5px,1.3vh,12px)}
+  .page--oportunidades .job-card{width:clamp(175px,15vw,235px);padding:clamp(11px,1.7vh,18px);gap:clamp(7px,1.2vh,11px)}
+  .page--oportunidades .job-ico{width:clamp(32px,4.2vh,42px);height:clamp(32px,4.2vh,42px);font-size:clamp(14px,2vh,18px)}
+  .page--oportunidades .job-t{font-size:clamp(13px,1.8vh,16px)}
+  .page--oportunidades .job-cta{font-size:clamp(11px,1.4vh,13px)}
+
+  /* ---------- TIENDA ---------- */
+  .page--tienda{display:flex;flex-direction:column;overflow:hidden}
+  .page--tienda .shop-cats{padding:clamp(8px,1.4vh,14px) 24px 4px;gap:10px}
+  .page--tienda .shop-cat-img{aspect-ratio:auto;height:clamp(44px,7vh,64px)}
+  .page--tienda .shop-cat-label{font-size:10px}
+  .page--tienda .shop{flex:1;min-height:0;padding:clamp(8px,1.4vh,16px) 24px;gap:28px;overflow:hidden}
+  .page--tienda .shop-side{overflow:hidden}
+  .page--tienda .shop-hr{margin:clamp(8px,1.5vh,16px) 0}
+  .page--tienda .best{margin-bottom:clamp(7px,1.3vh,12px)}
+  .page--tienda .shop-main{display:flex;flex-direction:column;min-height:0}
+  .page--tienda .shop-toolbar{padding-bottom:clamp(8px,1.4vh,14px);margin-bottom:clamp(8px,1.6vh,16px)}
+  .page--tienda .prod-grid{flex:1;min-height:0;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;
+    gap:clamp(10px,1.6vh,18px);overflow:hidden}
+  .page--tienda .prod{min-height:0}
+  .page--tienda .prod-img{flex:1;min-height:0;aspect-ratio:auto}
+  .page--tienda .prod-t{font-size:clamp(12px,1.6vh,14px);margin-top:clamp(5px,1vh,9px)}
+  .page--tienda .prod-cat{margin-top:4px}
+  .page--tienda .prod-price{font-size:clamp(14px,1.9vh,16px);margin-top:clamp(3px,.8vh,7px)}
+  .page--tienda .btn-cart{margin-top:clamp(5px,1vh,9px);padding:clamp(6px,1.1vh,9px) 12px;font-size:11.5px}
+
+  /* ---------- HOME (slider + carrusel) ---------- */
+  .page--home{display:flex;flex-direction:column;overflow:hidden}
+  .page--home .hero{flex:1;min-height:0;height:auto;margin:10px 12px 0}
+  .page--home .hero-dots{padding:clamp(6px,1.2vh,12px) 0}
+}
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width:1100px){
@@ -223,10 +459,11 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 @media (max-width:980px){
   .panels--4{grid-template-columns:1fr 1fr;height:auto}
   .panels--4 .panel{min-height:46vw}
-  .empresa-row{flex-direction:column;align-items:center}
+  .empresa-row{flex-direction:column;align-items:flex-start}
+  .empresa-left{width:100%;flex-direction:column;align-items:flex-start}
   .empresa-map{width:100%;max-width:420px}
   .empresa-text{width:100%}
-  .empresa-title{margin-left:0;text-align:center}
+  .empresa-title{margin-left:0;text-align:left}
   .shop{flex-direction:column}
   .shop-side{width:100%}
   .prod-grid{grid-template-columns:repeat(2,1fr)}

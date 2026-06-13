@@ -192,4 +192,30 @@ return [
     /* ---------- 404 ---------- */
     'La página que buscas no existe.' => 'The page you are looking for does not exist.',
     'Volver al inicio'                => 'Back to home',
+
+    /* ---------- UX: franja de valor, CTAs, accesibilidad, badges ---------- */
+    'Saltar al contenido'                                                        => 'Skip to content',
+    'Mantenimiento e instalación multimarca'                                     => 'Multi-brand maintenance & installation',
+    'La mejor relación costo–beneficio para motores, hidráulica y energía.'      => 'The best value for engines, hydraulics and power.',
+    'Servicio multimarca'                                                        => 'Multi-brand service',
+    'Sucursales en Chimbote y Lima'                                              => 'Branches in Chimbote & Lima',
+    'Cotiza en 24 h'                                                             => 'Get a quote in 24h',
+    'Solicitar cotización'                                                       => 'Request a quote',
+    'Solicitar'                                                                  => 'Request',
+    'Soluciones integrales para tu operación'                                    => 'End-to-end solutions for your operation',
+    'Productos y soluciones multimarca con la mejor relación costo–beneficio.'   => 'Multi-brand products and solutions with the best value.',
+    'Productos multimarca'                                                       => 'Multi-brand products',
+    'Garantía y soporte técnico'                                                 => 'Warranty & technical support',
+    'Más vendido'                                                                => 'Best seller',
+    'Enviar CV'                                                                  => 'Send CV',
+    'Más información'                                                             => 'More information',
+    'Mapa de sucursales de ESAKO en Perú'                                        => 'Map of ESAKO branches in Peru',
+    'Sucursal'                                                                   => 'Branch',
+    'Sectores que atendemos'                                                     => 'Industries we serve',
+    'Petróleo'                                                                   => 'Oil',
+
+    /* ---------- SEO: H1 ocultos ---------- */
+    'ESAKO — Empresa, misión y sucursales en Perú'        => 'ESAKO — Company, mission and branches in Peru',
+    'Oportunidades en ESAKO: boletines, cursos y empleos' => 'Opportunities at ESAKO: bulletins, courses and jobs',
+    'Tienda ESAKO: repuestos, filtros y aceites multimarca' => 'ESAKO Store: multi-brand parts, filters and oils',
 ];

@@ -10,6 +10,12 @@ $menu        = SiteData::menu();
 $servicioSub = SiteData::servicioMenu();
 $solucionSub = SiteData::solucionesMenu();
 $sidebar     = SiteData::sidebar();
+$empresaData = SiteData::empresa();
+
+/* SEO: descripción por página (con respaldo) y datos de marca */
+$metaDesc = $desc ?? 'ESAKO: mantenimiento, reparación e instalación multimarca de motores diésel, sistemas hidráulicos y grupos electrógenos. Sucursales en Chimbote y Lima, Perú.';
+$ogImage  = SiteData::IMG . '2021/08/6.jpg';
+$canonical = (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'esako.com.pe') . strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
 ?>
 <!DOCTYPE html>
 <html lang="<?= View::e(Lang::current()) ?>">
@@ -17,12 +23,50 @@ $sidebar     = SiteData::sidebar();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= View::e($title) ?></title>
+  <meta name="description" content="<?= View::e($metaDesc) ?>">
+  <link rel="canonical" href="<?= View::e($canonical) ?>">
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ESAKO">
+  <meta property="og:locale" content="<?= Lang::is('en') ? 'en_US' : 'es_PE' ?>">
+  <meta property="og:title" content="<?= View::e($title) ?>">
+  <meta property="og:description" content="<?= View::e($metaDesc) ?>">
+  <meta property="og:url" content="<?= View::e($canonical) ?>">
+  <meta property="og:image" content="<?= View::e($ogImage) ?>">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Datos estructurados: negocio local (SEO local — 2 sucursales) -->
+  <script type="application/ld+json">
+  <?= json_encode([
+    '@context' => 'https://schema.org',
+    '@type'    => 'LocalBusiness',
+    'name'     => 'ESAKO',
+    'description' => $metaDesc,
+    'url'      => $canonical,
+    'email'    => $empresaData['contacto'] ?? 'esako@esako.com.pe',
+    'image'    => $ogImage,
+    'areaServed' => 'Perú',
+    'address'  => array_map(static fn($s) => [
+        '@type' => 'PostalAddress', 'addressLocality' => $s, 'addressCountry' => 'PE',
+    ], $empresaData['sucursales'] ?? ['Chimbote', 'Lima']),
+  ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://esako.com.pe">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- FontAwesome no-bloqueante (no retrasa el render del contenido) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="<?= View::asset('css/styles.css') ?>">
 </head>
 <body>
+
+<!-- Salto al contenido (accesibilidad por teclado, WCAG 2.4.1) -->
+<a href="#contenido" class="skip-link"><?= View::e(t('Saltar al contenido')) ?></a>
 
 <!-- ════════════════════ NAV ════════════════════ -->
 <nav class="nav">
@@ -71,7 +115,11 @@ $sidebar     = SiteData::sidebar();
 </nav>
 
 <!-- ════════════════════ CONTENIDO ════════════════════ -->
-<main class="page"><?= $content ?></main>
+<main id="contenido" class="page page--<?= View::e($active) ?>">
+  <?php /* H1 semántico para páginas cuyo título visible no es un H1 */ ?>
+  <?php if (!empty($h1)): ?><h1 class="visually-hidden"><?= View::e(t($h1)) ?></h1><?php endif; ?>
+  <?= $content ?>
+</main>
 
 <!-- ════════════════════ BARRA LATERAL ════════════════════ -->
 <div class="floatbar">

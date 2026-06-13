@@ -12,9 +12,9 @@ final class SolucionesController extends Controller
     public function index(): void
     {
         $this->view('soluciones', [
-            'title'     => 'ESAKO — Soluciones',
+            'title'     => 'Soluciones y productos industriales multimarca | ESAKO Perú',
+            'desc'      => 'Soluciones integrales para tu operación: motores, transmisiones, repuestos, filtros y aceites con la mejor relación costo–beneficio. ESAKO Perú.',
             'active'    => 'soluciones',
-            'panels'    => SiteData::solucionesPanels(),
             'soluciones'=> SiteData::solucionesDetalle(),
         ]);
     }

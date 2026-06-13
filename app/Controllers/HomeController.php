@@ -12,7 +12,8 @@ final class HomeController extends Controller
     public function index(): void
     {
         $this->view('home', [
-            'title'    => 'ESAKO — Inicio',
+            'title'    => 'ESAKO | Mantenimiento e instalación multimarca de motores diésel en Perú',
+            'desc'     => 'Mantenimiento, reparación e instalación multimarca de motores diésel, sistemas hidráulicos, grupos electrógenos y más. Sucursales en Chimbote y Lima. Cotiza hoy.',
             'active'   => 'home',
             'slides'   => SiteData::heroSlides(),
             'carousel' => SiteData::carousel(),

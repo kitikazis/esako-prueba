@@ -12,7 +12,9 @@ final class TiendaController extends Controller
     public function index(): void
     {
         $this->view('tienda', [
-            'title'       => 'ESAKO — Tienda',
+            'title'       => 'Tienda de repuestos, filtros y aceites multimarca | ESAKO Perú',
+            'desc'        => 'Compra repuestos, filtros, aceites y refrigerantes para motores diésel y maquinaria. Productos multimarca con garantía. Tienda online ESAKO Perú.',
+            'h1'          => 'Tienda ESAKO: repuestos, filtros y aceites multimarca',
             'active'      => 'tienda',
             'categorias'  => SiteData::tiendaCategorias(),
             'sidebarCats' => SiteData::tiendaSidebarCats(),

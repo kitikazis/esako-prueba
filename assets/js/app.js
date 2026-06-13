@@ -10,6 +10,49 @@
     initHero();
     initCarousel();
     initNav();
+    initMap();
+  }
+
+  /* ----------------- MAPA INTERACTIVO (hover resalta + tooltip) ----------------- */
+  function initMap() {
+    var svg = document.querySelector('.peru-map');
+    if (!svg) return;
+    var wrap = svg.closest('.empresa-map') || svg.parentNode;
+    if (window.getComputedStyle(wrap).position === 'static') { wrap.style.position = 'relative'; }
+
+    var tip = document.createElement('div');
+    tip.className = 'map-tip';
+    tip.hidden = true;
+    wrap.appendChild(tip);
+
+    var EN = (document.documentElement.getAttribute('lang') === 'en');
+    var BRANCH = EN ? 'Branch' : 'Sucursal';
+    // Nombres propios con tildes (data-dep viene en MAYÚSCULAS sin acentos)
+    var NAMES = {
+      ANCASH: 'Áncash', APURIMAC: 'Apurímac', JUNIN: 'Junín', 'HUANUCO': 'Huánuco',
+      'SAN MARTIN': 'San Martín', 'MADRE DE DIOS': 'Madre de Dios', 'LA LIBERTAD': 'La Libertad'
+    };
+    function pretty(dep) {
+      if (NAMES[dep]) return NAMES[dep];
+      return dep.toLowerCase().replace(/(^|\s)\S/g, function (c) { return c.toUpperCase(); });
+    }
+
+    var regions = Array.prototype.slice.call(svg.querySelectorAll('.region'));
+    regions.forEach(function (r) {
+      r.addEventListener('mouseenter', function () {
+        r.parentNode.appendChild(r);           // trae la región al frente (bordes limpios)
+        var txt = pretty(r.getAttribute('data-dep'));
+        if (r.classList.contains('is-branch')) { txt += ' — ' + BRANCH; }
+        tip.textContent = txt;
+        tip.hidden = false;
+      });
+      r.addEventListener('mousemove', function (e) {
+        var box = wrap.getBoundingClientRect();
+        tip.style.left = (e.clientX - box.left) + 'px';
+        tip.style.top = (e.clientY - box.top) + 'px';
+      });
+      r.addEventListener('mouseleave', function () { tip.hidden = true; });
+    });
   }
 
   /* ----------------- HERO SLIDER ----------------- */

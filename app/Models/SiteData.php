@@ -150,6 +150,21 @@ final class SiteData
     {
         return [
             'sucursales' => ['Chimbote', 'Lima'],
+            /* Coordenadas (x,y) sobre el viewBox 1024×1024 del mapa SVG de Perú.
+               Añadir una sucursal aquí dibuja su marcador automáticamente. */
+            'sucursalesGeo' => [
+                ['n' => 'Chimbote', 'x' => 157, 'y' => 494],
+                ['n' => 'Lima',     'x' => 239, 'y' => 651],
+            ],
+            /* Sectores atendidos (imágenes reutilizadas del catálogo de tienda). */
+            'sectores' => [
+                ['label' => 'Minería',      'img' => self::IMG . '2025/10/3-3.jpg'],
+                ['label' => 'Pesca',        'img' => self::IMG . '2025/10/1-4.jpg'],
+                ['label' => 'Agroindustria','img' => self::IMG . '2025/10/4-3.jpg'],
+                ['label' => 'Construcción', 'img' => self::IMG . '2025/10/9.jpg'],
+                ['label' => 'Automotriz',   'img' => self::IMG . '2025/10/2-4.jpg'],
+                ['label' => 'Petróleo',     'img' => self::IMG . '2025/10/1-2.jpg'],
+            ],
             'mapa'       => self::IMG . '2025/10/mapadeesakofinal-1.webp',
             'nosotros'   => [
                 'En <strong>ESAKO GLOBAL SAC</strong>, nos especializamos en proporcionar soluciones con mejor relación costo-beneficio.',
@@ -225,8 +240,8 @@ final class SiteData
             ['t' => 'Aceite de Motor Diesel', 'cat' => $acm, 'precio' => 83.00,  'img' => self::IMG . '2025/10/5-800x800.jpg'],
             ['t' => 'Base de Filtro Separador Agua / Combustible', 'cat' => $ac, 'precio' => 350.00, 'img' => self::IMG . '2025/10/7-2-768x768.jpg'],
             ['t' => 'Empaque de Cubiertas', 'cat' => $ac, 'precio' => 85.00,  'img' => self::IMG . '2025/10/8-3-768x768.jpg'],
-            ['t' => 'Empaque de Cubiertas', 'cat' => $ac, 'precio' => 115.00, 'img' => self::IMG . '2025/10/10-768x768.jpg'],
-            ['t' => 'Filtro Separador Agua / Combustible', 'cat' => $ac, 'precio' => 240.00, 'img' => self::IMG . '2025/10/11-768x768.jpg'],
+            ['t' => 'Empaque de Cubiertas', 'cat' => $ac, 'precio' => 115.00, 'img' => self::IMG . '2025/10/10-768x768.jpg', 'badge' => 'Más vendido'],
+            ['t' => 'Filtro Separador Agua / Combustible', 'cat' => $ac, 'precio' => 240.00, 'img' => self::IMG . '2025/10/11-768x768.jpg', 'badge' => 'Más vendido'],
             ['t' => 'Filtro Separador Agua / Combustible', 'cat' => $ac, 'precio' => 55.00,  'img' => self::IMG . '2025/10/13-768x768.jpg'],
             ['t' => 'Filtro Separador Agua / Combustible', 'cat' => $ac, 'precio' => 69.00,  'img' => self::IMG . '2025/10/14-768x768.jpg'],
         ];

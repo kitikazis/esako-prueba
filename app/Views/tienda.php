@@ -59,6 +59,7 @@
     <div class="prod-grid">
       <?php foreach ($productos as $p): ?>
         <div class="prod">
+          <?php if (!empty($p['badge'])): ?><span class="prod-badge"><?= View::e(t($p['badge'])) ?></span><?php endif; ?>
           <div class="prod-img"><img src="<?= View::e($p['img']) ?>" alt="<?= View::e(t($p['t'])) ?>" loading="lazy"></div>
           <h4 class="prod-t"><?= View::e(strtoupper(t($p['t']))) ?></h4>
           <p class="prod-cat"><?= View::e(strtoupper(t($p['cat']))) ?></p>

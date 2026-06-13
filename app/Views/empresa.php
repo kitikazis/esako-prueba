@@ -9,11 +9,22 @@
     <h2 class="empresa-title"><?= View::e(t('Sucursales')) ?></h2>
 
     <div class="empresa-row">
-      <div class="empresa-map">
-        <img src="<?= View::e($empresa['mapa']) ?>" alt="Sucursales ESAKO — Perú" loading="lazy">
-        <?php foreach ($empresa['sucursales'] as $i => $suc): ?>
-          <span class="empresa-pin pin-<?= $i ?>"><?= View::e(strtoupper($suc)) ?></span>
-        <?php endforeach; ?>
+      <div class="empresa-left">
+        <div class="empresa-map">
+          <?php $puntos = $empresa['sucursalesGeo']; include APP_PATH . '/Views/partials/peru-map.php'; ?>
+        </div>
+
+        <div class="sectores">
+          <h3 class="sectores-h"><?= View::e(t('Sectores que atendemos')) ?></h3>
+          <div class="sectores-grid">
+            <?php foreach ($empresa['sectores'] as $sec): ?>
+              <div class="sector">
+                <span class="sector-img"><img src="<?= View::e($sec['img']) ?>" alt="<?= View::e(t($sec['label'])) ?>" loading="lazy"></span>
+                <span class="sector-lbl"><?= View::e(strtoupper(t($sec['label']))) ?></span>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
       </div>
 
       <div class="empresa-text">
