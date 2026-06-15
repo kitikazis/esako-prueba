@@ -73,6 +73,32 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .hero-dots .dot{width:11px;height:11px;border-radius:50%;background:#ccc;border:1.5px solid #bbb}
 .hero-dots .dot.is-active{background:var(--navy);border-color:var(--navy)}
 
+/* ===================== HERO CON VIDEO (inicio) ===================== */
+.vhero{position:relative;width:100%;height:calc(100svh - 96px);min-height:440px;overflow:hidden;background:#0b1b2e}
+.vhero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vhero-veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(6,14,28,.85),rgba(6,14,28,.5) 55%,rgba(6,14,28,.18))}
+.vhero-content{position:absolute;z-index:3;left:0;top:50%;transform:translateY(-50%);
+  padding:0 clamp(28px,6vw,90px);max-width:860px}
+.vhero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,5.6vw,66px);font-weight:700;
+  color:#fff;line-height:1.05;text-transform:uppercase;letter-spacing:1px;text-shadow:0 2px 18px rgba(0,0,0,.55)}
+.vhero-title span{display:block;color:var(--blue-soft);font-size:.62em;margin-top:6px;letter-spacing:1.5px}
+.vhero-sub{margin-top:16px;font-size:clamp(14px,1.7vw,19px);line-height:1.5;color:#dce7f2;max-width:580px;
+  text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.vhero-cta{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap}
+.btn-hero{display:inline-flex;align-items:center;gap:9px;font-family:'Barlow Condensed',sans-serif;font-size:15px;
+  font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:13px 26px;border-radius:4px;
+  text-decoration:none;transition:transform .15s,background .15s,border-color .15s}
+.btn-hero--primary{background:var(--blue);color:#fff}
+.btn-hero--primary:hover{background:#3a7fc4;transform:translateY(-2px)}
+.btn-hero--ghost{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.65)}
+.btn-hero--ghost:hover{background:rgba(255,255,255,.22);border-color:#fff;transform:translateY(-2px)}
+.vhero-toggle{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:64px;height:64px;border-radius:50%;background:rgba(0,0,0,.4);color:#fff;font-size:20px;
+  display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.7);
+  transition:background .2s,transform .2s}
+.vhero-toggle:hover{background:rgba(0,0,0,.65);transform:translate(-50%,-50%) scale(1.07)}
+
 /* ===================== CARRUSEL ===================== */
 .carousel{position:relative;margin:0 12px;overflow:hidden}
 .carousel-track{display:flex;transition:transform .25s ease-out;will-change:transform}
@@ -439,8 +465,7 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 
   /* ---------- HOME (slider + carrusel) ---------- */
   .page--home{display:flex;flex-direction:column;overflow:hidden}
-  .page--home .hero{flex:1;min-height:0;height:auto;margin:10px 12px 0}
-  .page--home .hero-dots{padding:clamp(6px,1.2vh,12px) 0}
+  .page--home .vhero{flex:1;min-height:0;height:auto}
 }
 
 /* ===================== RESPONSIVE ===================== */

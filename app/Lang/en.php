@@ -213,6 +213,11 @@ return [
     'Sucursal'                                                                   => 'Branch',
     'Sectores que atendemos'                                                     => 'Industries we serve',
     'Petróleo'                                                                   => 'Oil',
+    'Motores diésel · Hidráulica · Energía'                                      => 'Diesel engines · Hydraulics · Power',
+    'Soluciones industriales con la mejor relación costo–beneficio. Sucursales en Chimbote y Lima.' => 'Industrial solutions with the best value. Branches in Chimbote and Lima.',
+    'Brochure'                                                                   => 'Brochure',
+    'Contáctanos'                                                                => 'Contact us',
+    'Pausar o reproducir el video'                                               => 'Pause or play the video',
 
     /* ---------- SEO: H1 ocultos ---------- */
     'ESAKO — Empresa, misión y sucursales en Perú'        => 'ESAKO — Company, mission and branches in Peru',

@@ -11,6 +11,30 @@
     initCarousel();
     initNav();
     initMap();
+    initVideoHero();
+  }
+
+  /* ----------------- HERO CON VIDEO (play / pause) ----------------- */
+  function initVideoHero() {
+    var hero = document.querySelector('[data-vhero]');
+    if (!hero) return;
+    var video = hero.querySelector('.vhero-video');
+    var btn = hero.querySelector('[data-vhero-toggle]');
+    if (!video || !btn) return;
+    var icon = btn.querySelector('i');
+
+    function sync() {
+      var paused = video.paused;
+      if (icon) { icon.className = paused ? 'fas fa-play' : 'fas fa-pause'; }
+      btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function () {
+      if (video.paused) { video.play(); } else { video.pause(); }
+      sync();
+    });
+    video.addEventListener('play', sync);
+    video.addEventListener('pause', sync);
+    sync();
   }
 
   /* ----------------- MAPA INTERACTIVO (hover resalta + tooltip) ----------------- */

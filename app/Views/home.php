@@ -1,38 +1,34 @@
 <?php use App\Core\View; ?>
 
-<!-- ════════════ HERO SLIDER ════════════ -->
-<div class="hero" data-hero>
-  <?php foreach ($slides as $i => $s): ?>
-    <div class="hero-slide<?= $i === 0 ? ' is-active' : '' ?>"
-         data-title="<?= View::e(t($s['title'])) ?>" data-sub="<?= View::e(t($s['sub'])) ?>"
-         style="background-image:linear-gradient(to right,rgba(4,10,22,.80) 0%,rgba(4,10,22,.40) 52%,rgba(4,10,22,.10) 100%),url('<?= View::e($s['img']) ?>')"></div>
-  <?php endforeach; ?>
+<!-- ════════════ HERO CON VIDEO DE FONDO (una sola pantalla) ════════════ -->
+<section class="vhero" data-vhero>
+  <!-- Video de fondo. NOTA: hero-demo.mp4 es un clip de REFERENCIA (CC0).
+       Reemplázalo por el video real de ESAKO en assets/video/. -->
+  <video class="vhero-video" autoplay muted loop playsinline preload="auto"
+         poster="<?= View::e($slides[0]['img']) ?>">
+    <source src="<?= View::asset('video/hero-demo.mp4') ?>" type="video/mp4">
+  </video>
+  <div class="vhero-veil"></div>
 
-  <div class="hero-text">
-    <h1 data-hero-title><?= View::e(t($slides[0]['title'])) ?></h1>
-    <h2 data-hero-sub><?= View::e(t($slides[0]['sub'])) ?></h2>
+  <div class="vhero-content">
+    <h1 class="vhero-title">
+      <?= View::e(t('Mantenimiento e instalación multimarca')) ?>
+      <span><?= View::e(t('Motores diésel · Hidráulica · Energía')) ?></span>
+    </h1>
+    <p class="vhero-sub"><?= View::e(t('Soluciones industriales con la mejor relación costo–beneficio. Sucursales en Chimbote y Lima.')) ?></p>
+
+    <div class="vhero-cta">
+      <!-- TODO: enlazar Brochure al PDF real cuando esté disponible -->
+      <a class="btn-hero btn-hero--primary" href="#" >
+        <i class="fas fa-book-open"></i> <?= View::e(t('Brochure')) ?>
+      </a>
+      <a class="btn-hero btn-hero--ghost" href="https://wa.link/esako" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i> <?= View::e(t('Contáctanos')) ?>
+      </a>
+    </div>
   </div>
 
-  <button class="hero-arrow prev" data-hero-prev aria-label="Anterior">‹</button>
-  <button class="hero-arrow next" data-hero-next aria-label="Siguiente">›</button>
-</div>
-
-<div class="hero-dots" data-hero-dots>
-  <?php foreach ($slides as $i => $s): ?>
-    <button class="dot<?= $i === 0 ? ' is-active' : '' ?>" data-dot="<?= $i ?>" aria-label="Slide <?= $i + 1 ?>"></button>
-  <?php endforeach; ?>
-</div>
-
-<!-- ════════════ CARRUSEL DE PRODUCTOS ════════════ -->
-<div class="carousel" data-carousel>
-  <div class="carousel-track" data-carousel-track>
-    <?php foreach ($carousel as $c): ?>
-      <div class="carousel-item">
-        <img src="<?= View::e($c['img']) ?>" alt="<?= View::e(t($c['title'])) ?>" loading="lazy">
-        <div class="carousel-cap"><span><?= View::e(t($c['title'])) ?></span></div>
-      </div>
-    <?php endforeach; ?>
-  </div>
-  <button class="carousel-arrow prev" data-carousel-prev aria-label="Anterior">‹</button>
-  <button class="carousel-arrow next" data-carousel-next aria-label="Siguiente">›</button>
-</div>
+  <button class="vhero-toggle" data-vhero-toggle aria-label="<?= View::e(t('Pausar o reproducir el video')) ?>">
+    <i class="fas fa-pause"></i>
+  </button>
+</section>
