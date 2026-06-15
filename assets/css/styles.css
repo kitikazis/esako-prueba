@@ -93,11 +93,6 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .btn-hero--primary:hover{background:#3a7fc4;transform:translateY(-2px)}
 .btn-hero--ghost{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.65)}
 .btn-hero--ghost:hover{background:rgba(255,255,255,.22);border-color:#fff;transform:translateY(-2px)}
-.vhero-toggle{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:64px;height:64px;border-radius:50%;background:rgba(0,0,0,.4);color:#fff;font-size:20px;
-  display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.7);
-  transition:background .2s,transform .2s}
-.vhero-toggle:hover{background:rgba(0,0,0,.65);transform:translate(-50%,-50%) scale(1.07)}
 
 /* ===================== CARRUSEL ===================== */
 .carousel{position:relative;margin:0 12px;overflow:hidden}

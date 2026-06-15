@@ -27,8 +27,4 @@
       </a>
     </div>
   </div>
-
-  <button class="vhero-toggle" data-vhero-toggle aria-label="<?= View::e(t('Pausar o reproducir el video')) ?>">
-    <i class="fas fa-pause"></i>
-  </button>
 </section>
