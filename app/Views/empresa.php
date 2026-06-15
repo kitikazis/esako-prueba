@@ -10,8 +10,15 @@
 
     <div class="empresa-row">
       <div class="empresa-left">
-        <div class="empresa-map">
-          <?php $puntos = $empresa['sucursalesGeo']; include APP_PATH . '/Views/partials/peru-map.php'; ?>
+        <div class="empresa-mapwrap">
+          <div class="empresa-map">
+            <?php $puntos = $empresa['sucursalesGeo']; include APP_PATH . '/Views/partials/peru-map.php'; ?>
+          </div>
+          <ul class="branch-list" aria-label="<?= View::e(t('Sucursales')) ?>">
+            <?php foreach ($empresa['sucursalesGeo'] as $s): ?>
+              <li class="branch"><span class="branch-dot"></span><?= View::e(strtoupper(t($s['n']))) ?></li>
+            <?php endforeach; ?>
+          </ul>
         </div>
 
         <div class="sectores">
