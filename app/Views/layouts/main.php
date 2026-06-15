@@ -26,6 +26,10 @@ $canonical = (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . (
   <meta name="description" content="<?= View::e($metaDesc) ?>">
   <link rel="canonical" href="<?= View::e($canonical) ?>">
 
+  <!-- Favicon (marca de chevrones del logo ESAKO) -->
+  <link rel="icon" type="image/png" href="<?= View::asset('img/favicon.png') ?>">
+  <link rel="apple-touch-icon" href="<?= View::asset('img/favicon.png') ?>">
+
   <!-- Open Graph / redes sociales -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ESAKO">
