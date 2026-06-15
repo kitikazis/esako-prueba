@@ -121,7 +121,8 @@ $canonical = (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . (
   <?= $content ?>
 </main>
 
-<!-- ════════════════════ BARRA LATERAL ════════════════════ -->
+<!-- ════════════════════ BARRA LATERAL (oculta en el inicio) ════════════════════ -->
+<?php if ($active !== 'home'): ?>
 <div class="floatbar">
   <?php foreach ($sidebar as $s): ?>
     <a href="<?= View::e($s['url']) ?>" title="<?= View::e($s['title']) ?>"
@@ -129,6 +130,7 @@ $canonical = (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . (
        style="--hov: <?= View::e($s['hover']) ?>"><i class="<?= View::e($s['icon']) ?>"></i></a>
   <?php endforeach; ?>
 </div>
+<?php endif; ?>
 
 <!-- Botón flotante de WhatsApp -->
 <a href="https://wa.link/esako" target="_blank" rel="noopener" class="fab-wa" title="Escríbenos por WhatsApp">
