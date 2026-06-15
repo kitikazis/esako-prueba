@@ -25,7 +25,8 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 .nav{position:sticky;top:0;z-index:1000;background:var(--navy);height:76px;display:flex;align-items:center;
   justify-content:space-between;padding:0 28px;box-shadow:0 2px 12px rgba(0,0,0,.4)}
 .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
-.nav-logo img{height:60px;object-fit:contain}
+.nav-logo img{height:54px;object-fit:contain}
+.nav-logo-svg{height:46px;width:auto;display:block}
 .nav-logo-fallback{display:none;font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;color:#fff;letter-spacing:3px}
 .nav-check{display:none}
 .nav-burger{display:none}

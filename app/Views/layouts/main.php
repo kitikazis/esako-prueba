@@ -70,10 +70,21 @@ $canonical = (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . (
 
 <!-- ════════════════════ NAV ════════════════════ -->
 <nav class="nav">
-  <a href="<?= View::url() ?>" class="nav-logo">
-    <img src="<?= SiteData::IMG ?>2025/10/logo-alta-calidad-1.gif" alt="ESAKO"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-    <span class="nav-logo-fallback">ESAKO</span>
+  <a href="<?= View::url() ?>" class="nav-logo" aria-label="ESAKO Global — Inicio">
+    <?php if (is_file(BASE_PATH . '/assets/img/logo.png')): ?>
+      <!-- Logo real: basta con guardar tu PNG (fondo claro/transparente, versión clara) en assets/img/logo.png -->
+      <img src="<?= View::asset('img/logo.png') ?>" alt="ESAKO Global">
+    <?php else: ?>
+      <!-- Logo recreado en SVG (versión para fondo oscuro del nav). -->
+      <svg class="nav-logo-svg" viewBox="0 0 360 92" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ESAKO Global">
+        <polygon points="0,6 20,6 46,38 20,70 0,70 24,38" fill="#4a90d9"/>
+        <polygon points="32,6 52,6 78,38 52,70 32,70 56,38" fill="#f47a20"/>
+        <polygon points="64,6 84,6 110,38 84,70 64,70 88,38" fill="#9aa4b0"/>
+        <text x="126" y="57" font-family="'Barlow Condensed',sans-serif" font-weight="700" font-style="italic" font-size="62" letter-spacing="1" fill="#fff">ESAKO</text>
+        <line x1="130" y1="70" x2="300" y2="70" stroke="#f47a20" stroke-width="3"/>
+        <text x="341" y="89" text-anchor="end" font-family="'Barlow Condensed',sans-serif" font-weight="600" font-size="21" letter-spacing="5" fill="#f47a20">GLOBAL</text>
+      </svg>
+    <?php endif; ?>
   </a>
 
   <input type="checkbox" id="navchk" class="nav-check">
