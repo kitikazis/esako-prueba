@@ -160,13 +160,11 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 /* Mapa departamental SVG de Perú (vertical, dinámico, tamaño mediano) */
 .peru-map{width:100%;height:auto;max-height:62vh;display:block;overflow:visible;
   filter:drop-shadow(0 14px 30px rgba(9,33,67,.30))}
-.region{fill:var(--navy);stroke:#f4f6f9;stroke-width:1;vector-effect:non-scaling-stroke;
+.region{fill:#22344f;stroke:rgba(255,255,255,.16);stroke-width:1;vector-effect:non-scaling-stroke;
   cursor:pointer;transition:fill .2s,opacity .2s}
-.region.is-branch{fill:#e8a93c}
-/* Hover: la región apuntada se ilumina; las demás (no-sucursal) se atenúan */
-.peru-map:hover .region:not(.is-branch):not(:hover){opacity:.72}
-.region:hover{fill:var(--blue)}
-.region.is-branch:hover{fill:#ffc266}
+.region.is-branch{fill:#314c70}            /* sucursal: leve realce sobre el navy */
+/* Hover: la región apuntada se aclara sutilmente */
+.region:hover{fill:#3a5780}
 
 /* Tooltip del mapa (sigue al cursor) */
 .map-tip{position:absolute;z-index:60;pointer-events:none;transform:translate(-50%,-138%);
@@ -177,21 +175,44 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
   border:6px solid transparent;border-top-color:var(--navy)}
 .map-tip[hidden]{display:none}
 
-/* Marcadores de sucursal (punto blanco con núcleo navy sobre la región naranja) */
+/* Marcadores de sucursal (punto rojo + líneas que irradian, estilo referencia) */
 .pin{cursor:pointer}
-.pin-dot{fill:#fff;stroke:var(--navy);stroke-width:1.5;transition:r .2s}
-.pin-pulse{fill:#fff;transform-box:fill-box;transform-origin:center;
+.pin-ray{stroke:rgba(255,255,255,.42);stroke-width:1.2;vector-effect:non-scaling-stroke;pointer-events:none}
+.pin-dot{fill:#e0564a;stroke:#fff;stroke-width:1.5;transition:r .2s}
+.pin-pulse{fill:#e0564a;transform-box:fill-box;transform-origin:center;
   animation:pin-pulse 2.4s ease-out infinite;pointer-events:none}
-.pin-core{fill:var(--navy)}
-.pin-label{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;letter-spacing:.5px;
-  fill:#fff;paint-order:stroke;stroke:var(--navy);stroke-width:4px;stroke-linejoin:round;
-  dominant-baseline:middle;transition:fill .2s}
+.pin-core{fill:#fff}
+.pin-label{display:none}                    /* sin etiquetas en el mapa (van en el texto) */
 .pin:hover .pin-dot,.pin:focus-visible .pin-dot{r:11}
-.pin:hover .pin-label,.pin:focus-visible .pin-label{fill:#ffe6c2}
 .pin:focus-visible{outline:none}
 .pin:focus-visible .pin-dot{stroke:var(--blue);stroke-width:3}
 @keyframes pin-pulse{0%{transform:scale(1);opacity:.6}70%{opacity:0}100%{transform:scale(3.2);opacity:0}}
 @media (prefers-reduced-motion:reduce){.pin-pulse{animation:none;opacity:0}}
+
+/* ===================== EMPRESA — HERO PROFESIONAL (emp2) ===================== */
+.emp2{min-height:calc(100vh - 76px);background:#f4f2ec;display:flex;align-items:center}
+.emp2-inner{width:100%;max-width:1280px;margin:0 auto;padding:48px;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.emp2-text{min-width:0}
+.emp2-eyebrow{display:block;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;color:#8b94a0;margin-bottom:18px}
+.emp2-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--navy);line-height:1.02;
+  font-size:clamp(38px,5.6vw,84px);letter-spacing:-.5px;text-transform:none}
+.emp2-title .accent{color:#e0564a}
+.emp2-lead{margin-top:22px;max-width:560px;font-size:clamp(15px,1.25vw,18px);line-height:1.6;color:#5a6470}
+.emp2-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.emp2-btn{display:inline-flex;align-items:center;gap:9px;font-family:'Barlow Condensed',sans-serif;font-size:16px;
+  font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 32px;border-radius:40px;
+  text-decoration:none;border:1.5px solid var(--navy);color:var(--navy);background:transparent;transition:.18s}
+.emp2-btn:hover{background:var(--navy);color:#fff;transform:translateY(-2px)}
+.emp2-btn--ghost{border-color:#cdd5dd;color:#5a6470}
+.emp2-btn--ghost:hover{background:#25d366;border-color:#25d366;color:#fff}
+.emp2-meta{margin-top:30px;display:flex;gap:24px;flex-wrap:wrap;align-items:center;font-size:14px;color:#6b7480}
+.emp2-meta b{color:var(--navy)}
+.emp2-meta i{color:#e0564a;margin-right:4px}
+.emp2-map{display:flex;justify-content:center;align-items:center;min-width:0}
+.emp2 .peru-map{width:auto;height:auto;max-width:100%;max-height:76vh;
+  filter:drop-shadow(0 20px 44px rgba(9,33,67,.22))}
 
 /* Sectores que atendemos (al costado izquierdo del mapa) */
 .sectores{order:-1;flex-shrink:0;text-align:left}
@@ -406,34 +427,15 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
   /* En pantallas bajas, oculta el CTA revelado para no robar altura */
   @media (max-height:760px){.srv-cta{display:none}}
 
-  /* ---------- EMPRESA ---------- */
-  .page--empresa .empresa{height:100%;min-height:0;overflow:hidden}
-  /* wrap en columna: título arriba, fila ocupa el resto sin desbordar */
-  .page--empresa .empresa-wrap{height:100%;display:flex;flex-direction:column;
-    padding:clamp(10px,1.8vh,22px) 32px;overflow:hidden}
-  .page--empresa .empresa-title{flex:0 0 auto;margin:0 0 clamp(6px,1.2vh,12px) 0;
-    text-align:left;font-size:clamp(18px,2.6vh,26px)}
-  /* contenido arriba (no centrado), justo bajo el título */
-  .page--empresa .empresa-row{flex:1;min-height:0;display:flex;gap:clamp(22px,3vw,44px);align-items:flex-start}
-  /* izquierda = [sectores | mapa+sucursales]; el texto ocupa el resto a la derecha */
-  .page--empresa .empresa-left{flex:0 0 auto;height:100%;
-    display:flex;flex-direction:row;align-items:flex-start;gap:clamp(16px,2vw,30px)}
-  .page--empresa .sectores{order:-1;flex:0 0 auto}
-  .page--empresa .empresa-mapwrap{height:100%;justify-content:flex-start;gap:clamp(10px,1.6vh,16px)}
-  /* mapa MEDIANO */
-  .page--empresa .empresa-map{flex:0 1 auto;min-height:0;width:clamp(220px,22vw,300px);display:flex;align-items:center;justify-content:center}
-  .page--empresa .peru-map{width:100%;height:auto;max-height:48vh}
-  .page--empresa .branch{font-size:clamp(12px,1.5vh,15px);padding:clamp(6px,1vh,9px) clamp(12px,1.2vw,18px)}
-  .page--empresa .sectores-h{margin-bottom:clamp(10px,1.7vh,18px);font-size:clamp(12px,1.6vh,16px)}
-  .page--empresa .sectores-grid{grid-template-columns:repeat(2,max-content);
-    gap:clamp(12px,2.1vh,20px) clamp(12px,1.1vw,20px)}
-  .page--empresa .sector-img{width:clamp(50px,7vh,76px);height:clamp(50px,7vh,76px);border-width:3px}
-  .page--empresa .sector-lbl{font-size:clamp(10px,1.3vh,12.5px)}
-  /* columna de texto: llena el alto, sin desbordar */
-  .page--empresa .empresa-text{flex:1;min-width:0;height:100%;overflow:hidden;padding-top:2px}
-  .page--empresa .empresa-text h3{font-size:clamp(15px,2vh,20px);margin-bottom:clamp(3px,.7vh,8px)}
-  .page--empresa .empresa-text p{font-size:clamp(11.5px,1.45vh,14.5px);line-height:1.4;
-    margin-bottom:clamp(6px,1.3vh,14px)}
+  /* ---------- EMPRESA (hero emp2) ---------- */
+  .page--empresa .emp2{height:100%;min-height:0;overflow:hidden}
+  .page--empresa .emp2-inner{height:100%;padding:clamp(20px,3vh,44px) clamp(28px,4vw,56px);
+    grid-template-columns:1.05fr .9fr;gap:clamp(28px,4vw,56px)}
+  .page--empresa .emp2-title{font-size:clamp(34px,5vw,76px)}
+  .page--empresa .emp2-lead{margin-top:clamp(12px,2vh,22px)}
+  .page--empresa .emp2-cta{margin-top:clamp(16px,2.6vh,30px)}
+  .page--empresa .emp2-meta{margin-top:clamp(16px,2.4vh,30px)}
+  .page--empresa .emp2 .peru-map{max-height:calc(100svh - 150px)}
 
   /* ---------- OPORTUNIDADES ---------- */
   .page--oportunidades .oport{height:100%;display:flex;flex-direction:column;justify-content:center;
@@ -490,11 +492,10 @@ body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:20px;backgr
 @media (max-width:980px){
   .panels--4{grid-template-columns:1fr 1fr;height:auto}
   .panels--4 .panel{min-height:46vw}
-  .empresa-row{flex-direction:column;align-items:flex-start}
-  .empresa-left{width:100%;flex-direction:column;align-items:flex-start}
-  .empresa-map{width:100%;max-width:420px}
-  .empresa-text{width:100%}
-  .empresa-title{margin-left:0;text-align:left}
+  .emp2-inner{grid-template-columns:1fr;gap:28px;padding:36px 28px;text-align:center}
+  .emp2-lead{margin-left:auto;margin-right:auto}
+  .emp2-cta,.emp2-meta{justify-content:center}
+  .emp2 .peru-map{max-height:46vh}
   .shop{flex-direction:column}
   .shop-side{width:100%}
   .prod-grid{grid-template-columns:repeat(2,1fr)}

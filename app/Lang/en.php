@@ -219,6 +219,13 @@ return [
     'Contáctanos'                                                                => 'Contact us',
     'Pausar o reproducir el video'                                               => 'Pause or play the video',
 
+    /* ---------- Empresa (hero) ---------- */
+    'Soluciones industriales multimarca'                                         => 'Multi-brand industrial solutions',
+    'Impulsamos tu industria con'                                                => 'We power your industry with',
+    'Rigor Técnico.'                                                             => 'Technical Rigor.',
+    'En ESAKO GLOBAL SAC brindamos mantenimiento e instalación multimarca con la mejor relación costo–beneficio para minería, pesca, agroindustria, construcción, automotriz y petróleo.' => 'At ESAKO GLOBAL SAC we provide multi-brand maintenance and installation with the best value for mining, fishing, agribusiness, construction, automotive and oil.',
+    'Explorar Servicios'                                                         => 'Explore Services',
+
     /* ---------- SEO: H1 ocultos ---------- */
     'ESAKO — Empresa, misión y sucursales en Perú'        => 'ESAKO — Company, mission and branches in Peru',
     'Oportunidades en ESAKO: boletines, cursos y empleos' => 'Opportunities at ESAKO: bulletins, courses and jobs',

@@ -1,52 +1,38 @@
-<?php use App\Core\View; use App\Models\SiteData; ?>
+<?php use App\Core\View; ?>
 
-<!-- ════════════ EMPRESA / SUCURSALES ════════════ -->
-<section class="empresa">
-  <div class="empresa-bg" style="background-image:url('<?= SiteData::IMG ?>2025/10/1-29.jpg')"></div>
-  <div class="empresa-veil"></div>
+<!-- ════════════ EMPRESA — HERO PROFESIONAL ════════════ -->
+<section class="emp2">
+  <div class="emp2-inner">
 
-  <div class="empresa-wrap">
-    <h2 class="empresa-title"><?= View::e(t('Sucursales')) ?></h2>
+    <div class="emp2-text">
+      <span class="emp2-eyebrow"><?= View::e(t('Soluciones industriales multimarca')) ?></span>
+      <h1 class="emp2-title">
+        <?= View::e(t('Impulsamos tu industria con')) ?>
+        <span class="accent"><?= View::e(t('Rigor Técnico.')) ?></span>
+      </h1>
+      <p class="emp2-lead">
+        <?= View::e(t('En ESAKO GLOBAL SAC brindamos mantenimiento e instalación multimarca con la mejor relación costo–beneficio para minería, pesca, agroindustria, construcción, automotriz y petróleo.')) ?>
+      </p>
 
-    <div class="empresa-row">
-      <div class="empresa-left">
-        <div class="empresa-mapwrap">
-          <div class="empresa-map">
-            <?php $puntos = $empresa['sucursalesGeo']; include APP_PATH . '/Views/partials/peru-map.php'; ?>
-          </div>
-          <ul class="branch-list" aria-label="<?= View::e(t('Sucursales')) ?>">
-            <?php foreach ($empresa['sucursalesGeo'] as $s): ?>
-              <li class="branch"><span class="branch-dot"></span><?= View::e(strtoupper(t($s['n']))) ?></li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-
-        <div class="sectores">
-          <h3 class="sectores-h"><?= View::e(t('Sectores que atendemos')) ?></h3>
-          <div class="sectores-grid">
-            <?php foreach ($empresa['sectores'] as $sec): ?>
-              <div class="sector">
-                <span class="sector-img"><img src="<?= View::e($sec['img']) ?>" alt="<?= View::e(t($sec['label'])) ?>" loading="lazy"></span>
-                <span class="sector-lbl"><?= View::e(strtoupper(t($sec['label']))) ?></span>
-              </div>
-            <?php endforeach; ?>
-          </div>
-        </div>
+      <div class="emp2-cta">
+        <a class="emp2-btn" href="<?= View::url('servicio') ?>"><?= View::e(t('Explorar Servicios')) ?></a>
+        <a class="emp2-btn emp2-btn--ghost" href="https://wa.link/esako" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> <?= View::e(t('Contáctanos')) ?>
+        </a>
       </div>
 
-      <div class="empresa-text">
-        <h3><?= View::e(t('Nosotros')) ?></h3>
-        <p><?php foreach ($empresa['nosotros'] as $k => $par): ?><?= $k ? '<br>' : '' ?><?= t($par) /* contiene <strong> */ ?><?php endforeach; ?></p>
-
-        <h3><?= View::e(t('Visión - Misión')) ?></h3>
-        <p><?= View::e(t($empresa['vision'])) ?></p>
-
-        <h3><?= View::e(t('Valores')) ?></h3>
-        <p><?= View::e(t($empresa['valores'])) ?></p>
-
-        <h3><?= View::e(t('Contacto')) ?></h3>
-        <p><a href="mailto:<?= View::e($empresa['contacto']) ?>" class="link"><?= View::e($empresa['contacto']) ?></a></p>
+      <div class="emp2-meta">
+        <span class="emp2-branches">
+          <i class="fas fa-location-dot"></i> <?= View::e(t('Sucursales')) ?>:
+          <?php foreach ($empresa['sucursalesGeo'] as $i => $s): ?><?= $i ? ' · ' : ' ' ?><b><?= View::e(t($s['n'])) ?></b><?php endforeach; ?>
+        </span>
+        <a href="mailto:<?= View::e($empresa['contacto']) ?>" class="link"><?= View::e($empresa['contacto']) ?></a>
       </div>
     </div>
+
+    <div class="emp2-map">
+      <?php $puntos = $empresa['sucursalesGeo']; include APP_PATH . '/Views/partials/peru-map.php'; ?>
+    </div>
+
   </div>
 </section>
